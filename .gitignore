@@ -1,0 +1,16 @@
+qa/
+*.log
+lh-*.json
+home.html
+ppc-eu.html
+sm.xml
+smi.xml
+pages.json
+content.json
+shots/
+badges*.png
+sheet.png
+src/mont.css
+qa*.py
+interact*.py
+shot.py
