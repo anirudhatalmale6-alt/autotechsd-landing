@@ -3,7 +3,12 @@
 New landing page for [autotechsd.com](https://autotechsd.com) — San Diego auto repair,
 collision and EV/hybrid service center.
 
-**Live demo:** https://anirudhatalmale6-alt.github.io/autotechsd-landing/
+**Live demos**
+
+| Page | URL |
+|---|---|
+| Main landing page | https://anirudhatalmale6-alt.github.io/autotechsd-landing/ |
+| Car Battery Replacement | https://anirudhatalmale6-alt.github.io/autotechsd-landing/car-battery-replacement.html |
 
 ## What's in here
 
@@ -19,9 +24,11 @@ zero third-party calls.
 
 ## Verified
 
-| | Mobile | Desktop |
+Lighthouse, run against the built `dist/`:
+
+| | Main page | Battery page |
 |---|---|---|
-| Performance | 99 | 100 |
+| Performance (mobile / desktop) | 99 / 100 | 100 / 100 |
 | Accessibility | 100 | 100 |
 | Best Practices | 100 | 100 |
 | SEO | 100 | 100 |

@@ -302,6 +302,33 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 .step h3 { font-size: 1.125rem; font-weight: 700; margin-bottom: 8px; }
 .step p { font-size: .9rem; color: var(--ink-3); margin: 0; }
 
+.steps--4 { grid-template-columns: repeat(4, 1fr); }
+.sec--alt .step { background: #fff; }
+
+/* --- FAQ (native details/summary — no JS, keyboard accessible) ------------ */
+.faq { max-width: 860px; margin: 0 auto; display: grid; gap: 12px; }
+.faq__item {
+  background: #fff; border: 1px solid var(--line); border-radius: var(--r);
+  overflow: hidden; transition: border-color .18s ease, box-shadow .18s ease;
+}
+.faq__item[open] { border-color: #d6d6d6; box-shadow: var(--shadow); }
+.faq__item summary {
+  list-style: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  padding: clamp(16px, 2.2vw, 20px) clamp(18px, 2.4vw, 24px);
+  font-weight: 700; font-size: clamp(.9375rem, 1.6vw, 1.0625rem); color: var(--ink);
+}
+.faq__item summary::-webkit-details-marker { display: none; }
+.faq__item summary::after {
+  content: ''; flex: none; width: 22px; height: 22px; border-radius: 50%;
+  background: rgba(206,23,31,.09) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%23ce171f'%3E%3Cpath d='M7 10l5 5 5-5z'/%3E%3C/svg%3E") center/18px no-repeat;
+  transition: transform .2s ease;
+}
+.faq__item[open] summary::after { transform: rotate(180deg); }
+.faq__item summary:hover { color: var(--red); }
+.faq__a { padding: 0 clamp(18px, 2.4vw, 24px) clamp(18px, 2.2vw, 22px); }
+.faq__a p { margin: 0; color: var(--ink-3); font-size: .9375rem; }
+
 /* --- reviews -------------------------------------------------------------- */
 .quotes { display: grid; grid-template-columns: repeat(3, 1fr); gap: clamp(16px, 2.2vw, 26px); }
 .quote {
@@ -403,6 +430,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
 
 @media (max-width: 1080px) {
   .cards { grid-template-columns: repeat(2, 1fr); }
+  .steps--4 { grid-template-columns: repeat(2, 1fr); }
   .nav { gap: 14px; }
   .btn--phone span { display: none; }
   .btn--phone { padding: 11px 13px; }
@@ -437,7 +465,7 @@ ul, ol { margin: 0; padding: 0; list-style: none; }
   .hdr__cta { margin-left: auto; }
   .hdr__inner { gap: 10px; }
   .stats__grid { grid-template-columns: repeat(2, 1fr); }
-  .steps { grid-template-columns: 1fr; }
+  .steps, .steps--4 { grid-template-columns: 1fr; }
   .quotes { grid-template-columns: 1fr; }
 }
 
