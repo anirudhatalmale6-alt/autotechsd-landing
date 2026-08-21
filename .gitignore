@@ -15,3 +15,7 @@ qa*.py
 interact*.py
 shot.py
 sheet.jpg
+data/
+live-check.py
+shots-lp/
+preview/
