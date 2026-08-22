@@ -22,3 +22,6 @@ preview/
 __pycache__/
 shot-*.py
 lh-run.sh
+node_modules/
+npm-install.log
+lh-all.sh

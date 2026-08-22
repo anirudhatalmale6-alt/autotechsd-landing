@@ -172,6 +172,13 @@ def short_service(page):
     return PAGES[page['slug']]['name']
 
 
+def hero_size(name):
+    """Intrinsic size of a hero file, read at build time rather than hardcoded."""
+    from PIL import Image
+    with Image.open(os.path.join(ROOT, 'src', 'img', name)) as im:
+        return im.size
+
+
 def split_sign(s):
     """'Slow Engine Crank: The engine turns over sluggishly...' -> label, rest.
 
@@ -269,7 +276,7 @@ def build_fragment(page, cfg, img_base):
 
   <!-- hero -->
   <section class="ats-lp__hero">
-    <div class="ats-lp__hero-bg" style="background-image:url('{img}{hero}')"></div>
+    <div class="ats-lp__hero-bg"><img src="{img}{hero}" alt="" width="{hero_w}" height="{hero_h}" fetchpriority="high" decoding="async"></div>
     <div class="ats-lp__hero-inner">
       <p class="ats-lp__kicker">{kicker}</p>
       <h1>{h1}</h1>
@@ -362,7 +369,8 @@ def build_fragment(page, cfg, img_base):
   </section>
 
 </div>
-'''.format(img=img_base, hero=cfg['hero'], kicker=esc(page['kicker']), h1=esc(page['h1']),
+'''.format(img=img_base, hero=cfg['hero'],
+           hero_w=hero_size(cfg['hero'])[0], hero_h=hero_size(cfg['hero'])[1], kicker=esc(page['kicker']), h1=esc(page['h1']),
            lead=esc(page['heroSub']), phone_href=PHONE_HREF, phone=PHONE_DISPLAY, book=BOOK_URL,
            ticks=ticks, stats=stats, certs=certs, service=esc(service),
            h2=esc(cfg['h2']), body=body, address=ADDRESS, signs=signs_html,
@@ -441,6 +449,9 @@ INDEX_SHELL = '''<!DOCTYPE html>
     <h1>10 service landing pages</h1>
     <p>Your copy, your FAQs, your URLs and your schema markup — rebuilt in the site's own
     branding instead of the plain HTML the drafts came in.</p>
+    <p>Built on your expanded second draft. Every page now runs between 411 and 553 words
+    of visible copy, with sub-headings, bullet lists and the warranty statement — the word
+    count for each one is on its card below.</p>
     <p>Each page is a self-contained block of content. On the live site your WordPress theme
     supplies the header, menu and footer around it, so nothing here changes your existing design.</p>
     <p><strong>Photos:</strong> the shop images below are from your current site and are stand-ins —
