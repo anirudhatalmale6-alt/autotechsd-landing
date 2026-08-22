@@ -49,6 +49,10 @@ CERTS = [
 ICON_CHECK = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" '
               'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
               '<path d="M20 6 9 17l-5-5"/></svg>')
+ICON_SHIELD = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" '
+               'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+               '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z"/>'
+               '<path d="m9 12 2 2 4-4"/></svg>')
 ICON_TICK = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" '
              'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
              '<path d="M20 6 9 17l-5-5"/></svg>')
@@ -62,173 +66,94 @@ ICON_TICK = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-
 # --------------------------------------------------------------------------
 PAGES = {
     'car-battery-replacement-san-diego': {
+        'name': 'Car Battery Replacement',
         'hero': 'engine-wide.webp',
         'h2': 'Tested properly before anything gets replaced',
         'stats': [('Under <em>30</em> min', 'Most replacements'),
                   ('<em>Free</em>', 'Battery &amp; charging test'),
                   ('12<em>/</em>12', 'Month / 12,000-mile warranty'),
                   ('<em>Same</em> day', 'Installation')],
-        'band': ('What the battery service covers',
-                 'Our complimentary battery and charging-system test checks voltage, '
-                 'cold-cranking amps (CCA), and alternator output.'),
-        'checks': ['Voltage and cold-cranking amps (CCA) tested',
-                   'Alternator output and charging system checked',
-                   'Starter tested at the same time',
-                   'AGM, standard flooded and GEL batteries in stock',
-                   'Domestic, European, Japanese, hybrid and EV vehicles',
-                   'Written quote before any work starts'],
     },
     'brake-repair-san-diego': {
+        'name': 'Brake Repair & Replacement',
         'hero': 'bay-wide.webp',
         'h2': 'Brakes inspected, repaired and road-tested',
         'stats': [('<em>Same</em> day', 'Most pad &amp; rotor jobs'),
                   ('<em>Free</em>', 'Brake inspection'),
                   ('12<em>/</em>12', 'Month / 12,000-mile warranty'),
                   ('<em>OEM</em>-quality', 'Parts fitted')],
-        'band': ('What the brake service covers',
-                 'Our brake service starts with a free inspection of pads, rotors, '
-                 'calipers, and brake lines.'),
-        'checks': ['Pads, rotors, calipers and brake lines inspected',
-                   'Ceramic and semi-metallic pad options',
-                   'Full hydraulic system repair',
-                   'OEM-quality parts',
-                   'Every vehicle test-driven after the repair',
-                   'Squealing, grinding and soft-pedal diagnosis'],
     },
     'oil-change-san-diego': {
+        'name': 'Oil Change Service',
         'hero': 'hero-shop.webp',
         'h2': 'The right oil for your engine, not just any oil',
         'stats': [('<em>Free</em>', 'Multi-point inspection'),
                   ('5,000<em>-</em>7,500', 'Mile synthetic interval'),
                   ('<em>3</em> oil types', 'Synthetic, blend, high-mileage'),
                   ('<em>OEM</em> spec', 'Matched to your manufacturer')],
-        'band': ('What every oil change includes',
-                 'Every oil change includes a complimentary multi-point safety inspection.'),
-        'checks': ['Full synthetic, synthetic blend and high-mileage oils',
-                   'Oil matched to your manufacturer specification',
-                   'Oil filter replaced',
-                   'Essential fluids topped off',
-                   'Tire inflation pressures checked',
-                   'Complimentary multi-point safety inspection'],
     },
     'ac-repair-san-diego': {
+        'name': 'Auto A/C Repair',
         'hero': 'vehicles-row.webp',
         'h2': 'Diagnosed before it gets recharged',
         'stats': [('<em>Full</em> inspection', 'Before any recharge'),
                   ('<em>Exact</em> quote', 'Before work starts'),
                   ('<em>Hybrid</em> &amp; EV', 'Serviced too'),
                   ('<em>All</em> makes', 'Domestic, European, Asian')],
-        'band': ('What the A/C service covers',
-                 'Our A/C service includes a full inspection — refrigerant levels, '
-                 'compressor function, and leak detection — before any recharge.'),
-        'checks': ['Refrigerant levels checked',
-                   'Compressor function tested',
-                   'Leak detection before any recharge',
-                   'Weak airflow and warm-air diagnosis',
-                   'A/C clutch engagement checked',
-                   'Domestic, European, Asian, hybrid and EV vehicles'],
     },
     'transmission-repair-san-diego': {
+        'name': 'Transmission Repair',
         'hero': 'engine-wide.webp',
         'h2': 'Catch it early and it stays a fluid service',
         'stats': [('30k<em>-</em>60k', 'Mile fluid interval'),
                   ('<em>3</em> types', 'Automatic, manual, CVT'),
                   ('<em>Full</em> diagnostics', 'Before major repairs'),
                   ('<em>19</em> bays', 'Kearny Mesa facility')],
-        'band': ('What the transmission service covers',
-                 'We service automatic, manual, and CVT transmissions, offering fluid '
-                 'flushes and diagnostic evaluation for larger repairs.'),
-        'checks': ['Automatic, manual and CVT transmissions',
-                   'Transmission fluid flush',
-                   'Diagnostic evaluation before larger repairs',
-                   'Gear slipping and delayed engagement diagnosed',
-                   'Harsh shifting investigated',
-                   'Fluid leaks traced and repaired'],
     },
     'traction-control-abs-repair': {
+        'name': 'Traction Control & ABS Repair',
         'hero': 'european-bmw.webp',
         'h2': 'A warning light is a fault code, not a mystery',
         'stats': [('<em>Exact</em> fault code', 'Pulled before repair'),
                   ('<em>Targeted</em>', 'No guesswork repairs'),
                   ('<em>3</em> systems', 'ABS, traction, stability'),
                   ('<em>19</em> bays', 'Kearny Mesa facility')],
-        'band': ('How we diagnose the warning light',
-                 'These systems rely on wheel-speed sensors, the ABS module, and wiring. '
-                 'Our diagnostic process pulls the exact fault code so repairs are targeted.'),
-        'checks': ['Exact fault code pulled from the vehicle',
-                   'Wheel-speed sensors tested',
-                   'ABS module checked',
-                   'Wiring and connectors inspected',
-                   'Traction control and stability light diagnosis',
-                   'Repairs targeted at the actual fault'],
     },
     'cooling-system-repair-san-diego': {
+        'name': 'Cooling System Repair',
         'hero': 'bay-wide.webp',
         'h2': 'Overheating damage happens in minutes',
         'stats': [('30k<em>-</em>60k', 'Mile flush interval'),
                   ('<em>Minutes</em>', 'Is all overheating needs'),
                   ('<em>4</em> common causes', 'Diagnosed properly'),
                   ('<em>19</em> bays', 'Kearny Mesa facility')],
-        'band': ('What the cooling system service covers',
-                 'We perform coolant flushes, hose and belt inspections, and radiator repairs.'),
-        'checks': ['Coolant flush',
-                   'Radiator leak diagnosis and repair',
-                   'Water pump inspection',
-                   'Thermostat checked for sticking',
-                   'Radiator fan tested',
-                   'Hose and belt inspection'],
     },
     'tesla-ev-service-san-diego': {
+        'name': 'Tesla & EV Service',
         'hero': 'vehicles-row.webp',
         'h2': 'Independent EV service without the dealership wait',
         'stats': [('<em>19</em> bays', 'No dealership queue'),
                   ('<em>Same</em> day', 'Service turnaround'),
                   ('<em>12V</em>', 'Auxiliary battery service'),
                   ('<em>Tesla</em> &amp; EV', 'Alongside gas and hybrid')],
-        'band': ('What we service on your EV',
-                 'We handle the maintenance EV owners still need: tires, brakes, '
-                 'suspension and alignment, and 12-volt auxiliary battery testing.'),
-        'checks': ['Tire rotation and replacement',
-                   'Brake pads, rotors and slide pins',
-                   'Suspension work',
-                   'Wheel alignment',
-                   '12-volt auxiliary battery testing and replacement',
-                   'Tesla serviced alongside gas and hybrid vehicles'],
     },
     'windshield-replacement-san-diego': {
+        'name': 'Windshield Replacement',
         'hero': 'landrover.webp',
         'h2': 'Repair it early, replace it when it matters',
         'stats': [('Under <em>1</em> hr', 'Most chip repairs'),
                   ('<em>ADAS</em>', 'Camera recalibration'),
                   ('<em>Most</em> insurers', 'Billed directly'),
                   ('<em>19</em> bays', 'Kearny Mesa facility')],
-        'band': ('What the windshield service covers',
-                 'Small chips and cracks can often be repaired in under an hour if caught '
-                 'early, saving you the cost of a full replacement.'),
-        'checks': ['Chip and small-crack repair',
-                   'Full windshield replacement',
-                   'Driver-assist camera recalibration',
-                   'Lane-departure and collision-avoidance systems reset',
-                   'We work directly with most insurers',
-                   'Advice on repair versus replacement'],
     },
     'auto-body-shop-san-diego': {
+        'name': 'Auto Body & Collision Repair',
         'hero': 'collision.webp',
         'h2': 'Everyday bodywork, not just collision claims',
         'stats': [('<em>Upfront</em>', 'Estimate before work'),
                   ('<em>Factory</em> code', 'Paint mixed to match'),
                   ('<em>PDR</em>', 'Paintless dent repair'),
                   ('<em>19</em> bays', 'Kearny Mesa facility')],
-        'band': ('What the body shop handles',
-                 "Our body shop team handles paintless dent repair for minor dings, full "
-                 "panel repainting to match factory color, bumper scuff and scratch repair, "
-                 "and rust spot treatment."),
-        'checks': ['Paintless dent repair for minor dings',
-                   'Full panel repainting to factory color',
-                   'Bumper scuff and scratch repair',
-                   'Rust spot treatment',
-                   'Faded clear coat restored',
-                   'Upfront estimate before any work begins'],
     },
 }
 
@@ -242,17 +167,46 @@ def esc(s):
     return html.escape(s, quote=False)
 
 
-def short_service(h1):
-    """'Brake Repair & Replacement in San Diego, CA' -> 'Brake Repair & Replacement'."""
-    return re.sub(r'\s+in San Diego.*$', '', h1).strip()
+def short_service(page):
+    """The label used in the eyebrow, the nav and the closing CTA heading."""
+    return PAGES[page['slug']]['name']
+
+
+def split_sign(s):
+    """'Slow Engine Crank: The engine turns over sluggishly...' -> label, rest.
+
+    His signs are written as 'Label: explanation'. Bolding the label makes the
+    list scannable, which is the whole point of a symptoms list.
+    """
+    m = re.match(r'^([^:]{2,48}):\s+(.*)$', s.strip(), re.S)
+    return (m.group(1), m.group(2)) if m else (None, s.strip())
+
+
+def minify_css(text):
+    """Strip comments and collapse whitespace.
+
+    Preview only. The deliverable stays the readable wp/ats-lp.css the client
+    pastes into Additional CSS — SiteGround Optimizer minifies that end.
+    """
+    text = re.sub(r'/\*.*?\*/', '', text, flags=re.S)
+    text = re.sub(r'\s+', ' ', text)
+    text = re.sub(r'\s*([{};:,>])\s*', r'\1', text)
+    return text.replace(';}', '}').strip()
+
+
+def word_count(page):
+    """Words a visitor actually sees in the copy — the client asked for 400-500."""
+    parts = [page['heroSub'], page['bodyOpen'], page['warranty']]
+    for sec in page['sections']:
+        parts += [sec['h']] + sec['paras'] + sec['list']
+    parts += [page['signsH']] + page['signs']
+    for f in page['faq']:
+        parts += [f['q'], f['a']]
+    return sum(len(x.split()) for x in parts if x)
 
 
 def build_fragment(page, cfg, img_base):
-    slug = page['slug']
-    service = short_service(page['h1'])
-    lead = page['paras'][0]
-    rest = page['paras'][1:]
-    band_h2, band_lead = cfg['band']
+    service = short_service(page)
 
     stats = '\n'.join(
         '          <div class="ats-lp__stat"><b>%s</b><span>%s</span></div>' % (n, l)
@@ -263,9 +217,46 @@ def build_fragment(page, cfg, img_base):
         % (img_base, f, esc(a), w, h) for f, a, w, h in CERTS)
 
     ticks = '\n'.join('          <li>%s%s</li>' % (ICON_TICK, esc(t)) for t in HERO_TICKS)
-    checks = '\n'.join('          <li>%s<span>%s</span></li>' % (ICON_CHECK, esc(c))
-                       for c in cfg['checks'])
-    copy = '\n'.join('          <p>%s</p>' % esc(p) for p in rest)
+
+    # Body column: his opening paragraph, then a sub-heading per section with
+    # its paragraphs and any bullet list underneath.
+    body = ['          <p>%s</p>' % esc(page['bodyOpen'])] if page['bodyOpen'] else []
+    for sec in page['sections']:
+        body.append('          <h3 class="ats-lp__h3">%s</h3>' % esc(sec['h']))
+        body.extend('          <p>%s</p>' % esc(p) for p in sec['paras'])
+        if sec['list']:
+            body.append('          <ul>')
+            # Same 'Label: explanation' shape as the signs list — bold the label
+            # so the bullets scan instead of reading as more prose.
+            for li in sec['list']:
+                lab, rest = split_sign(li)
+                body.append('            <li>%s</li>' % (
+                    ('<b>%s:</b> %s' % (esc(lab), esc(rest))) if lab else esc(rest)))
+            body.append('          </ul>')
+    body = '\n'.join(body)
+
+    signs_html = ''
+    if page['signs']:
+        items = []
+        for s in page['signs']:
+            label, rest = split_sign(s)
+            inner = ('<b>%s:</b> %s' % (esc(label), esc(rest))) if label else esc(rest)
+            items.append('          <li>%s<span>%s</span></li>' % (ICON_CHECK, inner))
+        signs_html = '''
+  <!-- warning signs -->
+  <section class="ats-lp__sec ats-lp__sec--alt">
+    <div class="ats-lp__wrap">
+      <div class="ats-lp__head">
+        <p class="ats-lp__eyebrow">Warning signs</p>
+        <h2 class="ats-lp__h2">{h}</h2>
+        <p class="ats-lp__lead">Any of these means it is worth getting checked before it becomes a bigger repair.</p>
+      </div>
+      <ul class="ats-lp__checks ats-lp__checks--light">
+{items}
+      </ul>
+    </div>
+  </section>
+'''.format(h=esc(page['signsH'] or 'Signs you need this service'), items='\n'.join(items))
 
     faq = '\n'.join(
         '          <details>\n'
@@ -317,7 +308,7 @@ def build_fragment(page, cfg, img_base):
         <div class="ats-lp__copy-main">
           <p class="ats-lp__eyebrow">{service}</p>
           <h2 class="ats-lp__h2">{h2}</h2>
-{copy}
+{body}
         </div>
         <aside class="ats-lp__aside">
           <h3>Talk to a technician today</h3>
@@ -331,24 +322,20 @@ def build_fragment(page, cfg, img_base):
       </div>
     </div>
   </section>
-
-  <!-- what's covered -->
-  <section class="ats-lp__band">
-    <div class="ats-lp__band-bg" style="background-image:url('{img}{hero}')"></div>
-    <div class="ats-lp__wrap">
-      <div class="ats-lp__head">
-        <p class="ats-lp__eyebrow">What's included</p>
-        <h2 class="ats-lp__h2">{band_h2}</h2>
-        <p class="ats-lp__lead">Here is exactly what the service covers when you bring your vehicle to our Kearny Mesa shop.</p>
+{signs}
+  <!-- warranty -->
+  <section class="ats-lp__warranty">
+    <div class="ats-lp__warranty-inner">
+      <span class="ats-lp__warranty-mark">{shield}</span>
+      <div class="ats-lp__warranty-text">
+        <b>Backed by a written warranty</b>
+        <p>{warranty}</p>
       </div>
-      <ul class="ats-lp__checks">
-{checks}
-      </ul>
     </div>
   </section>
 
   <!-- FAQ -->
-  <section class="ats-lp__sec ats-lp__sec--alt">
+  <section class="ats-lp__sec">
     <div class="ats-lp__wrap">
       <div class="ats-lp__head ats-lp__head--mid">
         <p class="ats-lp__eyebrow">Questions</p>
@@ -376,11 +363,10 @@ def build_fragment(page, cfg, img_base):
 
 </div>
 '''.format(img=img_base, hero=cfg['hero'], kicker=esc(page['kicker']), h1=esc(page['h1']),
-           lead=esc(lead), phone_href=PHONE_HREF, phone=PHONE_DISPLAY, book=BOOK_URL,
+           lead=esc(page['heroSub']), phone_href=PHONE_HREF, phone=PHONE_DISPLAY, book=BOOK_URL,
            ticks=ticks, stats=stats, certs=certs, service=esc(service),
-           h2=esc(cfg['h2']),
-           copy=copy, address=ADDRESS, band_h2=esc(band_h2),
-           checks=checks, faq=faq)
+           h2=esc(cfg['h2']), body=body, address=ADDRESS, signs=signs_html,
+           shield=ICON_SHIELD, warranty=esc(page['warranty']), faq=faq)
 
 
 PREVIEW_SHELL = '''<!DOCTYPE html>
@@ -393,8 +379,7 @@ PREVIEW_SHELL = '''<!DOCTYPE html>
 <link rel="canonical" href="{canonical}">
 <link rel="icon" href="img/mark.webp" type="image/webp">
 <link rel="preload" as="font" type="font/woff2" href="fonts/montserrat-latin-var.woff2" crossorigin>
-<link rel="stylesheet" href="css/preview-shell.css">
-<link rel="stylesheet" href="css/ats-lp.css">
+<style>{css}</style>
 <script type="application/ld+json">
 {schema}
 </script>
@@ -432,8 +417,7 @@ INDEX_SHELL = '''<!DOCTYPE html>
 <meta name="robots" content="noindex">
 <link rel="icon" href="img/mark.webp" type="image/webp">
 <link rel="preload" as="font" type="font/woff2" href="fonts/montserrat-latin-var.woff2" crossorigin>
-<link rel="stylesheet" href="css/preview-shell.css">
-<style>
+<style>{css}
   .pv-intro {{ max-width: 900px; margin: 0 auto; padding: clamp(28px,5vw,56px) clamp(16px,4vw,32px) 8px; }}
   .pv-intro h1 {{ font-size: clamp(1.6rem,3.4vw,2.3rem); margin: 0 0 12px; color: #191919; letter-spacing: -.02em; }}
   .pv-intro p {{ margin: 0 0 10px; color: #5a5a5a; line-height: 1.6; }}
@@ -496,8 +480,12 @@ def main():
     shutil.copy(os.path.join(ROOT, 'preview-shell.css'),
                 os.path.join(PREVIEW_OUT, 'css', 'preview-shell.css'))
 
+    css = minify_css(
+        open(os.path.join(ROOT, 'preview-shell.css'), encoding='utf-8').read()
+        + open(os.path.join(ROOT, 'wp', 'ats-lp.css'), encoding='utf-8').read())
+
     navlinks = '\n'.join(
-        '    <a href="%s.html">%s</a>' % (p['slug'], esc(short_service(p['h1'])))
+        '    <a href="%s.html">%s</a>' % (p['slug'], esc(short_service(p)))
         for p in pages)
 
     for page in pages:
@@ -512,7 +500,7 @@ def main():
         out = PREVIEW_SHELL.format(
             title=esc(page['title']), desc=esc(page['metaDesc']),
             canonical=page['canonical'], schema=json.dumps(page['schema'], indent=2),
-            navlinks=navlinks, fragment=frag_pv, address=ADDRESS,
+            navlinks=navlinks, fragment=frag_pv, address=ADDRESS, css=css,
             phone_href=PHONE_HREF, phone=PHONE_DISPLAY)
         open(os.path.join(PREVIEW_OUT, page['slug'] + '.html'), 'w', encoding='utf-8').write(out)
 
@@ -520,11 +508,12 @@ def main():
     cards = '\n'.join(
         '    <a class="pv-card" href="{slug}.html">'
         '<b>{n}. {name}</b><span>/{slug}/</span><em>{faq} FAQ &middot; {words} words</em></a>'.format(
-            slug=p['slug'], n=i + 1, name=esc(short_service(p['h1'])), faq=len(p['faq']),
-            words=sum(len(x.split()) for x in p['paras']))
+            slug=p['slug'], n=i + 1, name=esc(short_service(p)), faq=len(p['faq']),
+            words=word_count(p))
         for i, p in enumerate(pages))
     open(os.path.join(PREVIEW_OUT, 'index.html'), 'w', encoding='utf-8').write(INDEX_SHELL.format(
-        cards=cards, address=ADDRESS, phone_href=PHONE_HREF, phone=PHONE_DISPLAY))
+        cards=cards, address=ADDRESS, phone_href=PHONE_HREF, phone=PHONE_DISPLAY,
+        css=minify_css(open(os.path.join(ROOT, 'preview-shell.css'), encoding='utf-8').read())))
 
     print('built %d pages' % len(pages))
     print('  wp fragments -> %s' % WP_OUT)

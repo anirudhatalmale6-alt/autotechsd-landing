@@ -19,3 +19,6 @@ data/
 live-check.py
 shots-lp/
 preview/
+__pycache__/
+shot-*.py
+lh-run.sh
