@@ -134,7 +134,33 @@
 .ats-lp__copy-main p:last-child { margin-bottom: 0; }
 .ats-lp__copy-main > p:first-of-type { font-size: clamp(1.05rem, 1.7vw, 1.17rem); color: var(--ats-ink); }
 
-/* the sticky-ish call card beside the copy */
+/* Sub-headings and bullet lists inside the body copy. The second content pass
+   is ~450 words a page instead of ~90, so the column needs real structure —
+   a wall of paragraphs at that length stops being read. */
+.ats-lp h3.ats-lp__h3 {
+  margin: 30px 0 12px; color: var(--ats-ink);
+  font-size: clamp(1.06rem, 1.9vw, 1.22rem); font-weight: 800; line-height: 1.3;
+}
+.ats-lp__copy-main > h3.ats-lp__h3:first-child { margin-top: 0; }
+.ats-lp__copy-main ul { margin: 0 0 18px; padding: 0; list-style: none; display: grid; gap: 10px; }
+.ats-lp__copy-main ul li {
+  position: relative; padding-left: 26px;
+  color: var(--ats-ink-2); font-size: clamp(1rem, 1.5vw, 1.06rem); line-height: 1.6;
+}
+.ats-lp__copy-main ul li::before {
+  content: ''; position: absolute; left: 4px; top: .62em;
+  width: 7px; height: 7px; border-radius: 50%; background: var(--ats-red);
+}
+.ats-lp__copy-main ul li b { color: var(--ats-ink); font-weight: 700; }
+.ats-lp__copy-main ul:last-child { margin-bottom: 0; }
+
+/* The call card follows the reader down the page. With ~450 words in the left
+   column it would otherwise scroll away in the first screen and leave a tall
+   empty gutter for the rest. Only above 900px — below that the grid collapses
+   to one column and a sticky card would sit on top of the copy. */
+@media (min-width: 901px) {
+  .ats-lp__aside { position: sticky; top: 24px; }
+}
 .ats-lp__aside {
   background: var(--ats-ink); color: #fff; border-radius: var(--ats-r);
   padding: clamp(22px, 3vw, 30px); box-shadow: var(--ats-shadow-lg);
@@ -155,6 +181,28 @@
 .ats-lp__checks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 30px; margin: clamp(24px, 3.4vw, 34px) 0 0; padding: 0; list-style: none; }
 .ats-lp__checks li { display: flex; gap: 11px; color: #ececec; font-size: .97rem; line-height: 1.5; }
 .ats-lp__checks svg { flex: none; width: 21px; height: 21px; margin-top: 2px; color: var(--ats-red); }
+
+/* Same checklist grid on a light background, for the "signs you need this
+   service" block. Only the colours change — the icon and spacing stay put so
+   the two lists read as the same component. */
+.ats-lp__checks--light li { color: var(--ats-ink-2); }
+.ats-lp__checks--light li b { color: var(--ats-ink); font-weight: 700; }
+
+/* ---- warranty band ------------------------------------------------------ */
+.ats-lp__warranty { background: var(--ats-ink); padding: clamp(30px, 4.4vw, 46px) 0; }
+.ats-lp__warranty-inner {
+  display: flex; flex-wrap: wrap; align-items: center; gap: clamp(18px, 3vw, 38px);
+  max-width: var(--ats-wrap); margin: 0 auto; padding: 0 var(--ats-pad);
+}
+.ats-lp__warranty-mark {
+  flex: none; display: grid; place-items: center;
+  width: 58px; height: 58px; border-radius: 50%;
+  background: rgba(206, 23, 31, .16); border: 1px solid rgba(206, 23, 31, .5);
+}
+.ats-lp__warranty-mark svg { width: 27px; height: 27px; color: #ff8a8f; }
+.ats-lp__warranty-text { flex: 1 1 300px; min-width: 0; }
+.ats-lp__warranty-text b { display: block; color: #fff; font-size: 1.02rem; font-weight: 800; margin-bottom: 5px; }
+.ats-lp__warranty-text p { margin: 0; color: #cfcfcf; font-size: .93rem; line-height: 1.6; }
 
 /* ---- FAQ ---------------------------------------------------------------- */
 .ats-lp__faq { max-width: 840px; margin: 0 auto; display: grid; gap: 12px; }
