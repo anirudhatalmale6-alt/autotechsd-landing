@@ -155,6 +155,47 @@ PAGES = {
                   ('<em>PDR</em>', 'Paintless dent repair'),
                   ('<em>19</em> bays', 'Kearny Mesa facility')],
     },
+    # --- added later, from his second batch of copy ---
+    'commercial-fleet-service-repair-san-diego': {
+        'name': 'Commercial Fleet Service',
+        # Stand-ins picked to at least match the subject: the shop floor with a
+        # truck on a lift, not the row of sports cars used elsewhere. A fleet
+        # manager looking at a Porsche learns nothing about his cargo vans.
+        'hero': 'hero-shop.webp',
+        'h2': 'One shop for the whole fleet, mechanical through collision',
+        'stats': [('<em>19</em> bays', 'Service and repair bays'),
+                  ('<em>Since</em> 1999', 'Serving San Diego'),
+                  ('<em>24</em> hour', 'Vehicle drop-off'),
+                  ('<em>One</em> shop', 'Mechanical, glass &amp; collision')],
+        'figures': [
+            {'after': 1, 'caption': 'Our 19-bay facility in Kearny Mesa.',
+             'items': [('bay-wide.webp', 'Service bays at Auto Tech Specialists in Kearny Mesa, San Diego')]},
+            {'after': 6, 'caption': 'Company cars, work trucks, cargo vans and mixed fleets.',
+             'items': [('engine-wide.webp', 'Fleet vehicle under service at Auto Tech Specialists')]},
+        ],
+    },
+    'auto-detailing-san-diego': {
+        'name': 'Auto Detailing',
+        # landrover.webp is a Range Rover wordmark, not a vehicle — fine as a dark
+        # hero wash elsewhere, useless as a "before" detailing photo.
+        'hero': 'hero-shop.webp',
+        'h2': 'Two packages, priced up front',
+        'stats': [('<em>$150</em>', 'Silver package'),
+                  ('<em>$250</em>', 'Gold package'),
+                  ('1.5<em>&ndash;</em>4 hrs', 'Typical turnaround'),
+                  ('<em>3</em> add-ons', 'Engine bay, headlights, pet hair')],
+        # He asked for room for pictures, and his own file marks two spots:
+        # a before/after next to the packages and a finished-vehicle shot on Gold.
+        'figures': [
+            # A "before and after" faked from two unrelated cars would be a lie
+            # in a photo, so this stays a single slot until his real pair arrives
+            # — at which point it takes both images side by side.
+            {'after': 1, 'caption': 'Photo slot — your before-and-after detailing shots go here.',
+             'items': [('european-bmw.webp', 'Detailed vehicle at Auto Tech Specialists in San Diego')]},
+            {'after': 3, 'caption': 'A finished Gold package detail.',
+             'items': [('vehicles-row.webp', 'Gold auto detailing package at Auto Tech Specialists in Kearny Mesa')]},
+        ],
+    },
 }
 
 # Short hero tick lines. Kept identical across pages because they describe the
@@ -203,13 +244,64 @@ def minify_css(text):
 
 def word_count(page):
     """Words a visitor actually sees in the copy — the client asked for 400-500."""
-    parts = [page['heroSub'], page['bodyOpen'], page['warranty']]
+    parts = [page['heroSub'], page['bodyOpen'], page['warranty'],
+             page.get('glanceH', ''), page.get('ctaLead', ''),
+             page.get('finePrint', ''), page.get('asideNote', '')]
+    for label, value in page.get('glance', []):
+        parts += [label, value]
     for sec in page['sections']:
         parts += [sec['h']] + sec['paras'] + sec['list']
+        if sec.get('table'):
+            parts += sec['table']['head'] + [c for r in sec['table']['rows'] for c in r]
     parts += [page['signsH']] + page['signs']
     for f in page['faq']:
         parts += [f['q'], f['a']]
     return sum(len(x.split()) for x in parts if x)
+
+
+def render_table(t, caption):
+    """His comparison table, wrapped so it can scroll instead of forcing the page to.
+
+    A three-column table with this much text in each cell cannot shrink to 320px.
+    Letting the wrapper scroll keeps the table readable and stops it blowing out
+    the width of every other section on the page.
+    """
+    head = '\n'.join('              <th scope="col">%s</th>' % esc(h) for h in t['head'])
+    rows = []
+    for r in t['rows']:
+        cells = ['              <th scope="row">%s</th>' % esc(r[0])]
+        cells += ['              <td>%s</td>' % esc(c) for c in r[1:]]
+        rows.append('            <tr>\n%s\n            </tr>' % '\n'.join(cells))
+    # On a phone only the first price column fits, and a cut-off table gives no
+    # hint that a second one exists — on a page whose whole job is comparing the
+    # two packages, that loses half the content. The hint shows below 700px only.
+    return ('          <p class="ats-lp__table-hint">Swipe the table sideways to compare both packages.</p>\n'
+            '          <div class="ats-lp__table-wrap" tabindex="0" role="region" '
+            'aria-label="%s">\n'
+            '            <table class="ats-lp__table">\n'
+            '              <thead>\n            <tr>\n%s\n            </tr>\n              </thead>\n'
+            '              <tbody>\n%s\n              </tbody>\n'
+            '            </table>\n'
+            '          </div>' % (esc(caption), head, '\n'.join(rows)))
+
+
+def render_figure(group, img_base):
+    """A photo slot inside the body column.
+
+    The client asked for room for pictures. These carry stand-in shots from his
+    current site now and are the exact spots his own photos drop into — same
+    markup, same dimensions, only the filename changes.
+    """
+    imgs = []
+    for name, alt in group['items']:
+        w, h = hero_size(name)
+        imgs.append('            <img src="%s%s" alt="%s" width="%d" height="%d" '
+                    'loading="lazy" decoding="async">' % (img_base, name, esc(alt), w, h))
+    cls = 'ats-lp__fig' + (' ats-lp__fig--pair' if len(imgs) > 1 else '')
+    cap = ('\n            <figcaption>%s</figcaption>' % esc(group['caption'])
+           if group.get('caption') else '')
+    return ('          <figure class="%s" data-ats-photo-slot>\n%s%s\n          </figure>'
+            % (cls, '\n'.join(imgs), cap))
 
 
 def build_fragment(page, cfg, img_base):
@@ -228,9 +320,12 @@ def build_fragment(page, cfg, img_base):
     # Body column: his opening paragraph, then a sub-heading per section with
     # its paragraphs and any bullet list underneath.
     body = ['          <p>%s</p>' % esc(page['bodyOpen'])] if page['bodyOpen'] else []
-    for sec in page['sections']:
+    figures = {f['after']: f for f in cfg.get('figures', [])}
+    for i, sec in enumerate(page['sections']):
         body.append('          <h3 class="ats-lp__h3">%s</h3>' % esc(sec['h']))
         body.extend('          <p>%s</p>' % esc(p) for p in sec['paras'])
+        if sec.get('table'):
+            body.append(render_table(sec['table'], sec['h']))
         if sec['list']:
             body.append('          <ul>')
             # Same 'Label: explanation' shape as the signs list — bold the label
@@ -240,6 +335,10 @@ def build_fragment(page, cfg, img_base):
                 body.append('            <li>%s</li>' % (
                     ('<b>%s:</b> %s' % (esc(lab), esc(rest))) if lab else esc(rest)))
             body.append('          </ul>')
+        if i in figures:
+            body.append(render_figure(figures[i], img_base))
+    if page.get('finePrint'):
+        body.append('          <p class="ats-lp__fineprint">%s</p>' % esc(page['finePrint']))
     body = '\n'.join(body)
 
     signs_html = ''
@@ -271,6 +370,51 @@ def build_fragment(page, cfg, img_base):
         '            <p class="ats-lp__faq-a">%s</p>\n'
         '          </details>' % (esc(f['q']), esc(f['a']))
         for f in page['faq'])
+
+    # "At a glance" — his own summary list, on the two newer pages only. It is
+    # six label/value pairs, which is too many for the four stat tiles, so it
+    # gets its own panel rather than being trimmed to fit.
+    glance_html = ''
+    if page.get('glance'):
+        items = '\n'.join(
+            '          <div class="ats-lp__glance-row"><dt>%s</dt><dd>%s</dd></div>'
+            % (esc(label), esc(value)) for label, value in page['glance'])
+        glance_html = '''
+  <!-- at a glance -->
+  <section class="ats-lp__sec ats-lp__sec--alt">
+    <div class="ats-lp__wrap ats-lp__wrap--narrow">
+      <div class="ats-lp__head ats-lp__head--mid">
+        <p class="ats-lp__eyebrow">Overview</p>
+        <h2 class="ats-lp__h2">{h}</h2>
+      </div>
+      <dl class="ats-lp__glance">
+{items}
+      </dl>
+    </div>
+  </section>
+'''.format(h=esc(page['glanceH']), items=items)
+
+    # The warranty covers repairs. Detailing is not a repair, so that page has
+    # no warranty text and the whole band is left off rather than softened.
+    warranty_html = ''
+    if page.get('warranty'):
+        warranty_html = '''
+  <!-- warranty -->
+  <section class="ats-lp__warranty">
+    <div class="ats-lp__warranty-inner">
+      <span class="ats-lp__warranty-mark">{shield}</span>
+      <div class="ats-lp__warranty-text">
+        <b>Backed by a written warranty</b>
+        <p>{warranty}</p>
+      </div>
+    </div>
+  </section>
+'''.format(shield=ICON_SHIELD, warranty=esc(page['warranty']))
+
+    aside_note = ('\n          <p class="ats-lp__aside-note">%s</p>' % esc(page['asideNote'])
+                  if page.get('asideNote') else '')
+    cta_lead = ('\n        <p class="ats-lp__cta-lead">%s</p>' % esc(page['ctaLead'])
+                if page.get('ctaLead') else '')
 
     return '''<div class="ats-lp">
 
@@ -320,7 +464,7 @@ def build_fragment(page, cfg, img_base):
         <aside class="ats-lp__aside">
           <h3>Talk to a technician today</h3>
           <p>Tell us what the car is doing and we will tell you what it needs — with a written estimate before any work starts.</p>
-          <a class="ats-btn ats-btn--primary" href="{phone_href}">Call {phone}</a>
+          <a class="ats-btn ats-btn--primary" href="{phone_href}">Call {phone}</a>{aside_note}
           <p class="ats-lp__aside-meta">
             <strong>Auto Tech Specialists</strong>
             {address}<br>Walk-ins welcome
@@ -329,18 +473,7 @@ def build_fragment(page, cfg, img_base):
       </div>
     </div>
   </section>
-{signs}
-  <!-- warranty -->
-  <section class="ats-lp__warranty">
-    <div class="ats-lp__warranty-inner">
-      <span class="ats-lp__warranty-mark">{shield}</span>
-      <div class="ats-lp__warranty-text">
-        <b>Backed by a written warranty</b>
-        <p>{warranty}</p>
-      </div>
-    </div>
-  </section>
-
+{glance}{signs}{warranty}
   <!-- FAQ -->
   <section class="ats-lp__sec">
     <div class="ats-lp__wrap">
@@ -359,7 +492,7 @@ def build_fragment(page, cfg, img_base):
     <div class="ats-lp__cta-inner">
       <div>
         <h2>Need {service} in San Diego?</h2>
-        <p>{address} &middot; Walk-ins welcome</p>
+        <p>{address} &middot; Walk-ins welcome</p>{cta_lead}
       </div>
       <div class="ats-lp__cta-actions">
         <a class="ats-btn ats-btn--primary" href="{phone_href}">Call {phone}</a>
@@ -374,7 +507,8 @@ def build_fragment(page, cfg, img_base):
            lead=esc(page['heroSub']), phone_href=PHONE_HREF, phone=PHONE_DISPLAY, book=BOOK_URL,
            ticks=ticks, stats=stats, certs=certs, service=esc(service),
            h2=esc(cfg['h2']), body=body, address=ADDRESS, signs=signs_html,
-           shield=ICON_SHIELD, warranty=esc(page['warranty']), faq=faq)
+           glance=glance_html, warranty=warranty_html, aside_note=aside_note,
+           cta_lead=cta_lead, faq=faq)
 
 
 PREVIEW_SHELL = '''<!DOCTYPE html>
@@ -446,16 +580,20 @@ INDEX_SHELL = '''<!DOCTYPE html>
 </header>
 <main>
   <div class="pv-intro">
-    <h1>10 service landing pages</h1>
+    <h1>12 service landing pages</h1>
     <p>Your copy, your FAQs, your URLs and your schema markup — rebuilt in the site's own
     branding instead of the plain HTML the drafts came in.</p>
-    <p>Built on your expanded second draft. Every page now runs between 411 and 553 words
-    of visible copy, with sub-headings, bullet lists and the warranty statement — the word
-    count for each one is on its card below.</p>
+    <p>Built on your expanded second draft. Every page carries sub-headings, bullet lists
+    and the warranty statement — the word count for each one is on its card below.</p>
+    <p><strong>Fleet and Detailing</strong> are the two newest and are longer than the rest,
+    because your drafts for them were longer. Detailing also has the Silver/Gold comparison
+    table, and it is the one page with no warranty band — a detail is not a repair, so the
+    12-month/12,000-mile repair warranty does not apply to it.</p>
     <p>Each page is a self-contained block of content. On the live site your WordPress theme
     supplies the header, menu and footer around it, so nothing here changes your existing design.</p>
-    <p><strong>Photos:</strong> the shop images below are from your current site and are stand-ins —
-    they get swapped for the shop and vehicle photos you're sending.</p>
+    <p><strong>Photos:</strong> every image here is a stand-in taken from your current site.
+    Fleet and Detailing also have dedicated photo slots in the body copy, captioned for the
+    shots that belong there — your own photos drop straight into them.</p>
   </div>
   <div class="pv-grid">
 {cards}
