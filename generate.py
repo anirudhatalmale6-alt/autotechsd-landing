@@ -158,9 +158,9 @@ PAGES = {
     # --- added later, from his second batch of copy ---
     'commercial-fleet-service-repair-san-diego': {
         'name': 'Commercial Fleet Service',
-        # Stand-ins picked to at least match the subject: the shop floor with a
-        # truck on a lift, not the row of sports cars used elsewhere. A fleet
-        # manager looking at a Porsche learns nothing about his cargo vans.
+        # Hero is still a stand-in. His own fleet photo goes in the body instead:
+        # it is a 4:1 band, and the hero is object-fit:cover into a tall box on a
+        # phone, which would zoom that band down to about one grille.
         'hero': 'hero-shop.webp',
         'h2': 'One shop for the whole fleet, mechanical through collision',
         'stats': [('<em>19</em> bays', 'Service and repair bays'),
@@ -168,10 +168,13 @@ PAGES = {
                   ('<em>24</em> hour', 'Vehicle drop-off'),
                   ('<em>One</em> shop', 'Mechanical, glass &amp; collision')],
         'figures': [
-            {'after': 1, 'caption': 'Our 19-bay facility in Kearny Mesa.',
+            # His photo, cropped to the truck row. Everything above the crop line
+            # was the building signage, and the lettering in the file he sent is
+            # misspelt there ("AOTECHSD.COM"), so it does not go on his own page.
+            {'after': 1, 'caption': 'Work trucks and service vans in for fleet maintenance.',
+             'items': [('fleet-vehicles.webp', 'Fleet of white work trucks and service vans at Auto Tech Specialists in San Diego')]},
+            {'after': 6, 'caption': 'Our 19-bay facility in Kearny Mesa.',
              'items': [('bay-wide.webp', 'Service bays at Auto Tech Specialists in Kearny Mesa, San Diego')]},
-            {'after': 6, 'caption': 'Company cars, work trucks, cargo vans and mixed fleets.',
-             'items': [('engine-wide.webp', 'Fleet vehicle under service at Auto Tech Specialists')]},
         ],
     },
     'auto-detailing-san-diego': {
