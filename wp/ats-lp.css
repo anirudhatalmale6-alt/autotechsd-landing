@@ -1,8 +1,11 @@
 /* ==========================================================================
    Auto Tech Specialists — service landing pages
    Everything is scoped under .ats-lp so it cannot leak into the rest of the
-   Astra theme. Paste this file ONCE into Appearance > Customize > Additional
-   CSS; every landing page then only carries its own markup.
+   Astra theme. generate.py minifies this file into a <style> block at the top
+   of every wp/pages/*.html fragment, so the pages style themselves and nobody
+   has to open the Customizer. Fallback if <style> is ever stripped on save
+   (kses does that for any user without unfiltered_html): paste this file once
+   into Appearance > Customize > Additional CSS instead.
    ========================================================================== */
 
 .ats-lp {
@@ -358,4 +361,42 @@
   .ats-lp__table-hint::after { content: '\00a0\2192'; }
   .ats-lp__table { min-width: 500px; }
   .ats-lp__table th, .ats-lp__table td { padding: 11px 12px; }
+}
+
+/* ---- nationwide warranty band ------------------------------------------- */
+/* Rebuilt from the flat NAPA banner: real text, real button. Sharp on any
+   screen, readable by Google, and the CTA is an actual link. */
+.ats-lp__warr {
+  background: var(--ats-ink);
+  color: #fff;
+  background-image:
+    radial-gradient(closest-side at 78% 50%, rgba(0,86,168,.55), rgba(0,86,168,0) 100%),
+    radial-gradient(closest-side at 92% 50%, rgba(206,23,31,.30), rgba(206,23,31,0) 100%);
+}
+.ats-lp__warr-in {
+  display: flex; align-items: center; gap: clamp(20px, 4vw, 40px); justify-content: space-between;
+  padding: clamp(26px, 4vw, 46px) var(--ats-pad);
+}
+.ats-lp__warr-txt { flex: 1 1 auto; min-width: 0; }
+.ats-lp__warr-kicker {
+  display: inline-block; font-size: .72rem; font-weight: 700; letter-spacing: .12em;
+  text-transform: uppercase; color: #ffc72c; margin: 0 0 10px;
+}
+.ats-lp__warr h2 {
+  margin: 0 0 6px; color: #fff; font-weight: 800; line-height: 1.1;
+  font-size: clamp(1.5rem, 3.4vw, 2.3rem);
+}
+.ats-lp__warr h2 em { font-style: normal; color: #ffc72c; }
+.ats-lp__warr p { margin: 0 0 18px; color: rgba(255,255,255,.82); max-width: 46ch; font-size: 1rem; }
+.ats-lp__warr .ats-btn { margin: 0; }
+.ats-lp__warr-logo {
+  flex: 0 0 auto; width: clamp(104px, 11vw, 128px);
+  background: #fff; border-radius: 14px; padding: 14px 16px;
+  display: flex; align-items: center; justify-content: center;
+}
+.ats-lp__warr-logo img { width: 100%; height: auto; }
+@media (max-width: 720px) {
+  .ats-lp__warr-in { flex-direction: column-reverse; align-items: flex-start; gap: 22px; }
+  .ats-lp__warr-logo { width: 130px; }
+  .ats-lp__warr p { max-width: none; }
 }
