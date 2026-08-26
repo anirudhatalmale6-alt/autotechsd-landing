@@ -57,6 +57,13 @@ ICON_TICK = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-
              'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
              '<path d="M20 6 9 17l-5-5"/></svg>')
 
+# Cancelled 26 Aug 2026. His site already has /auto-body-and-collision-repair/,
+# which he only spotted after the build — two pages targeting the same service
+# compete with each other in Google, so this one is out of the deliverable.
+# Its config below and its content in content.json stay put, so the FAQ and the
+# Service schema can be lifted onto his existing live page if he wants them.
+SKIP = {'auto-body-shop-san-diego'}
+
 # --------------------------------------------------------------------------
 # Per-page presentation data.
 #   hero    background image
@@ -612,7 +619,8 @@ INDEX_SHELL = '''<!DOCTYPE html>
 
 
 def main():
-    pages = json.load(open(CONTENT, encoding='utf-8'))
+    pages = [p for p in json.load(open(CONTENT, encoding='utf-8'))
+             if p['slug'] not in SKIP]
 
     for d in (WP_OUT, PREVIEW_OUT):
         if os.path.isdir(d):
