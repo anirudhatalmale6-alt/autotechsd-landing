@@ -26,3 +26,5 @@ node_modules/
 npm-install.log
 lh-all.sh
 lh-new.sh
+lh-fleet.sh
+lhf-*.json
