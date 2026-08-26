@@ -243,8 +243,8 @@ def split_sign(s):
 def minify_css(text):
     """Strip comments and collapse whitespace.
 
-    Preview only. The deliverable stays the readable wp/ats-lp.css the client
-    pastes into Additional CSS — SiteGround Optimizer minifies that end.
+    Used for the preview shell and for the <style> block carried inside each
+    WordPress fragment. wp/ats-lp.css stays the readable master.
     """
     text = re.sub(r'/\*.*?\*/', '', text, flags=re.S)
     text = re.sub(r'\s+', ' ', text)
@@ -640,9 +640,21 @@ def main():
     shutil.copy(os.path.join(ROOT, 'preview-shell.css'),
                 os.path.join(PREVIEW_OUT, 'css', 'preview-shell.css'))
 
+    lp_css = open(os.path.join(ROOT, 'wp', 'ats-lp.css'), encoding='utf-8').read()
+
     css = minify_css(
-        open(os.path.join(ROOT, 'preview-shell.css'), encoding='utf-8').read()
-        + open(os.path.join(ROOT, 'wp', 'ats-lp.css'), encoding='utf-8').read())
+        open(os.path.join(ROOT, 'preview-shell.css'), encoding='utf-8').read() + lp_css)
+
+    # Each WP fragment carries its own stylesheet, so the pages style themselves
+    # and nobody has to visit the Customizer. Goes in the same Custom HTML block
+    # as the markup — no block delimiters, the fragment is pasted as one lump.
+    # Everything is namespaced .ats-lp, so eleven copies cannot collide with each
+    # other or with Astra.
+    # NOTE: <style> survives only for a user with unfiltered_html, i.e. an
+    # Administrator on a single-site install. Posted as an Editor, wp_kses_post
+    # strips it and the pages render unstyled — that is why the job needs an
+    # Administrator, not because of the Customizer.
+    wp_style = '<style>%s</style>\n\n' % minify_css(lp_css)
 
     navlinks = '\n'.join(
         '    <a href="%s.html">%s</a>' % (p['slug'], esc(short_service(p)))
@@ -653,7 +665,8 @@ def main():
 
         # WordPress fragment — images resolve to the media library folder.
         frag_wp = build_fragment(page, cfg, IMG_WP)
-        open(os.path.join(WP_OUT, page['slug'] + '.html'), 'w', encoding='utf-8').write(frag_wp)
+        open(os.path.join(WP_OUT, page['slug'] + '.html'), 'w', encoding='utf-8').write(
+            wp_style + frag_wp)
 
         # Preview — images resolve locally.
         frag_pv = build_fragment(page, cfg, IMG_PREVIEW)
