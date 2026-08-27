@@ -56,7 +56,11 @@ def img_url(base, rel):
 CERTS = [
     ('cert-ase.webp', 'ASE Certified', 95, 93),
     ('cert-hybrid.webp', 'Hybrid Certified', 95, 93),
-    ('cert-napa-autocare.webp', 'NAPA AutoCare Center', 150, 41),
+    # RepairPal and the higher-resolution NAPA AutoCare mark are the two files
+    # he sent on 27 Aug. They went onto the home page strip first; these pages
+    # carry the same row, so they get the same two.
+    ('cert-repairpal.webp', 'RepairPal Certified', 260, 278),
+    ('cert-napa-autocare-hd.webp', 'NAPA AutoCare Center', 180, 48),
     ('cert-bbb.webp', 'BBB Accredited Business', 150, 66),
     ('cert-aaa.webp', 'AAA Approved Auto Repair', 125, 77),
     ('cert-carfax.webp', 'CARFAX Service Shop', 171, 32),
