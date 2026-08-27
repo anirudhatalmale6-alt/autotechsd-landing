@@ -326,8 +326,8 @@ def landing_pages():
 
 def cmd_pages(wp):
     code, existing = wp.json(
-        'GET', '/pages?per_page=100&status=any&_fields=id,slug')
-    by_slug = {p['slug']: p['id'] for p in existing} if isinstance(existing, list) else {}
+        'GET', '/pages?per_page=100&status=any&_fields=id,slug,status')
+    by_slug = {p['slug']: p for p in existing} if isinstance(existing, list) else {}
 
     for p in landing_pages():
         body = {
@@ -339,13 +339,18 @@ def cmd_pages(wp):
             'title': short_name(p['slug']),
             'slug': p['slug'],
             'content': p['_html'],
-            'status': 'draft',              # he publishes, not me
         }
-        pid = by_slug.get(p['slug'])
-        if pid:
-            code, res = wp.json('POST', '/pages/%d' % pid, json=body)
+        prev = by_slug.get(p['slug'])
+        if prev:
+            # NEVER send `status` on an update. These pages are live; passing
+            # 'draft' here (which this did) silently unpublishes all 11 and
+            # WordPress then bounces every URL to the home page. Whatever
+            # status the page already has is his decision, not the script's.
+            code, res = wp.json('POST', '/pages/%d' % prev['id'], json=body)
             what = 'updated'
         else:
+            # A brand new page starts as a draft — he publishes, not me.
+            body['status'] = 'draft'
             code, res = wp.json('POST', '/pages', json=body)
             what = 'created'
         if code not in (200, 201):
