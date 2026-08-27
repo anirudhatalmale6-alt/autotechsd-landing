@@ -28,7 +28,9 @@ PREVIEW_OUT = os.path.join(ROOT, 'preview')
 PHONE_DISPLAY = '(858) 277-2850'
 PHONE_HREF = 'tel:+18582772850'
 ADDRESS = '7950 Clairemont Mesa Blvd, San Diego, CA 92111'
-BOOK_URL = 'https://autotechsd.com/contact/'
+# /contact/ does not exist on his site — the booking form is /appointments/,
+# which is where every BOOK APPOINTMENT button in his header and footer goes.
+BOOK_URL = 'https://autotechsd.com/appointments/'
 
 # Image base. Preview reads them out of the local img/ folder; the WordPress
 # build reads them off his site.
