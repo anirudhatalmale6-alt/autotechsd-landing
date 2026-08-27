@@ -30,10 +30,26 @@ PHONE_HREF = 'tel:+18582772850'
 ADDRESS = '7950 Clairemont Mesa Blvd, San Diego, CA 92111'
 BOOK_URL = 'https://autotechsd.com/contact/'
 
-# Image base. Preview reads them out of the local img/ folder; once the media
-# library IDs exist this flips to the WordPress uploads URL.
+# Image base. Preview reads them out of the local img/ folder; the WordPress
+# build reads them off his site.
+#
+# The uploads path is NOT ours to choose. The REST media endpoint drops files
+# into wp-content/uploads/<year>/<month>/ and renames anything whose name is
+# already taken, so a single fixed prefix is a guess that breaks on the first
+# collision. wp-deploy.py records the source_url the API actually returned for
+# each file in data/media-map.json; if that file exists we use those URLs and
+# the prefix below is only the fallback for anything not yet uploaded.
 IMG_WP = 'https://autotechsd.com/wp-content/uploads/atslp/'
 IMG_PREVIEW = 'img/'
+MEDIA_MAP = os.path.join(ROOT, 'data', 'media-map.json')
+
+
+def img_url(base, rel):
+    """Resolve one image reference. `base` is either a plain prefix (preview)
+    or a {relative path: absolute URL} map read back from the media library."""
+    if isinstance(base, dict):
+        return base.get(rel, IMG_WP + rel)
+    return base + rel
 
 CERTS = [
     ('cert-ase.webp', 'ASE Certified', 95, 93),
@@ -305,8 +321,9 @@ def render_figure(group, img_base):
     imgs = []
     for name, alt in group['items']:
         w, h = hero_size(name)
-        imgs.append('            <img src="%s%s" alt="%s" width="%d" height="%d" '
-                    'loading="lazy" decoding="async">' % (img_base, name, esc(alt), w, h))
+        imgs.append('            <img src="%s" alt="%s" width="%d" height="%d" '
+                    'loading="lazy" decoding="async">'
+                    % (img_url(img_base, name), esc(alt), w, h))
     cls = 'ats-lp__fig' + (' ats-lp__fig--pair' if len(imgs) > 1 else '')
     cap = ('\n            <figcaption>%s</figcaption>' % esc(group['caption'])
            if group.get('caption') else '')
@@ -322,8 +339,8 @@ def build_fragment(page, cfg, img_base):
         for n, l in cfg['stats'])
 
     certs = '\n'.join(
-        '          <img src="%scert/%s" alt="%s" width="%d" height="%d" loading="lazy" decoding="async">'
-        % (img_base, f, esc(a), w, h) for f, a, w, h in CERTS)
+        '          <img src="%s" alt="%s" width="%d" height="%d" loading="lazy" decoding="async">'
+        % (img_url(img_base, 'cert/' + f), esc(a), w, h) for f, a, w, h in CERTS)
 
     ticks = '\n'.join('          <li>%s%s</li>' % (ICON_TICK, esc(t)) for t in HERO_TICKS)
 
@@ -430,7 +447,7 @@ def build_fragment(page, cfg, img_base):
 
   <!-- hero -->
   <section class="ats-lp__hero">
-    <div class="ats-lp__hero-bg"><img src="{img}{hero}" alt="" width="{hero_w}" height="{hero_h}" fetchpriority="high" decoding="async"></div>
+    <div class="ats-lp__hero-bg"><img src="{hero_url}" alt="" width="{hero_w}" height="{hero_h}" fetchpriority="high" decoding="async"></div>
     <div class="ats-lp__hero-inner">
       <p class="ats-lp__kicker">{kicker}</p>
       <h1>{h1}</h1>
@@ -512,7 +529,7 @@ def build_fragment(page, cfg, img_base):
   </section>
 
 </div>
-'''.format(img=img_base, hero=cfg['hero'],
+'''.format(hero_url=img_url(img_base, cfg['hero']),
            hero_w=hero_size(cfg['hero'])[0], hero_h=hero_size(cfg['hero'])[1], kicker=esc(page['kicker']), h1=esc(page['h1']),
            lead=esc(page['heroSub']), phone_href=PHONE_HREF, phone=PHONE_DISPLAY, book=BOOK_URL,
            ticks=ticks, stats=stats, certs=certs, service=esc(service),
@@ -656,6 +673,13 @@ def main():
     # Administrator, not because of the Customizer.
     wp_style = '<style>%s</style>\n\n' % minify_css(lp_css)
 
+    # Real media-library URLs if wp-deploy.py has uploaded anything yet,
+    # otherwise the plain prefix.
+    img_wp = IMG_WP
+    if os.path.exists(MEDIA_MAP):
+        img_wp = json.load(open(MEDIA_MAP, encoding='utf-8'))
+        print('media map: %d image(s) resolve to real uploads' % len(img_wp))
+
     navlinks = '\n'.join(
         '    <a href="%s.html">%s</a>' % (p['slug'], esc(short_service(p)))
         for p in pages)
@@ -664,7 +688,7 @@ def main():
         cfg = PAGES[page['slug']]
 
         # WordPress fragment — images resolve to the media library folder.
-        frag_wp = build_fragment(page, cfg, IMG_WP)
+        frag_wp = build_fragment(page, cfg, img_wp)
         open(os.path.join(WP_OUT, page['slug'] + '.html'), 'w', encoding='utf-8').write(
             wp_style + frag_wp)
 
