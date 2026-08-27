@@ -30,6 +30,7 @@ Two things about this host that are easy to lose an hour to:
 """
 
 import base64
+import importlib.util
 import json
 import mimetypes
 import os
@@ -40,6 +41,9 @@ import requests
 ROOT = os.path.dirname(os.path.abspath(__file__))
 SITE = 'https://autotechsd.com'
 BASE = SITE + '/wp-json/wp/v2'
+# Rank Math keeps its meta out of core's `meta` field; this is the only
+# namespace that will write rank_math_title / rank_math_description.
+RANKMATH = SITE + '/wp-json/rankmath/v1'
 CRED = os.path.join(ROOT, 'data', 'apppw.txt')
 COOKIE_CACHE = os.path.join(ROOT, 'data', 'sg-cookie.json')
 MEDIA_MAP = os.path.join(ROOT, 'data', 'media-map.json')
@@ -113,7 +117,13 @@ class WP(object):
     def _shield(self, r):
         if 'sgcaptcha' in r.text[:400]:
             # The cached cookie went stale; take one fresh one and retry.
+            # sg_session() hands back a BARE session, so the Authorization
+            # header has to be re-applied or the retry silently goes out
+            # unauthenticated and comes back 401.
+            auth = self.s.headers.get('Authorization')
             self.s = sg_session(force_cookie=True)
+            if auth:
+                self.s.headers['Authorization'] = auth
             return True
         return False
 
@@ -283,6 +293,26 @@ def cmd_media(wp):
 # pages
 # --------------------------------------------------------------------------
 
+def short_name(slug):
+    """The human name for a page — menu label, breadcrumb, admin list.
+
+    Single source of truth is generate.py's PAGES table, so the menu labels and
+    the page titles can never drift apart. generate.py guards its main(), so
+    importing it is free.
+    """
+    global _PAGES
+    if _PAGES is None:
+        spec = importlib.util.spec_from_file_location(
+            'ats_generate', os.path.join(ROOT, 'generate.py'))
+        mod = importlib.util.module_from_spec(spec)
+        spec.loader.exec_module(mod)
+        _PAGES = mod.PAGES
+    return _PAGES[slug]['name'].replace('&amp;', '&')
+
+
+_PAGES = None
+
+
 def landing_pages():
     pages = [p for p in json.load(open(CONTENT, encoding='utf-8'))
              if p['slug'] not in SKIP]
@@ -301,12 +331,15 @@ def cmd_pages(wp):
 
     for p in landing_pages():
         body = {
-            'title': p['title'],
+            # The WP post title is NOT the SEO title. It is what shows up in the
+            # admin list, in breadcrumbs, and as the default label when he drags
+            # the page into a menu — "Auto Detailing", not
+            # "Professional Auto Detailing San Diego | Kearny Mesa". The SEO
+            # title goes to Rank Math below.
+            'title': short_name(p['slug']),
             'slug': p['slug'],
             'content': p['_html'],
             'status': 'draft',              # he publishes, not me
-            'meta': {'rank_math_description': p['metaDesc'],
-                     'rank_math_title': p['title']},
         }
         pid = by_slug.get(p['slug'])
         if pid:
@@ -318,15 +351,20 @@ def cmd_pages(wp):
         if code not in (200, 201):
             print('  FAILED %-42s %s %s' % (p['slug'], code, res.get('message') or res))
             continue
-        print('  %-8s %-42s id=%s' % (what, p['slug'], res['id']))
+        print('  %-8s %-42s id=%-5s %s' % (what, p['slug'], res['id'],
+                                           short_name(p['slug'])))
 
-        # Rank Math's meta keys are only writable if the plugin registered them
-        # for REST. Read back rather than trusting the 200.
-        code, back = wp.json('GET', '/pages/%d?context=edit&_fields=meta' % res['id'])
-        got = (back.get('meta') or {}).get('rank_math_description')
-        if got != p['metaDesc']:
-            print('       meta description did NOT stick — set it by hand in '
-                  'Rank Math, or via the rankmath REST namespace')
+        # Rank Math does not register its keys with core's `meta` field, so
+        # passing them to /wp/v2/pages is silently dropped AND reading them back
+        # there always looks empty. Its own namespace is the only route that
+        # works; proven against the live site, then confirmed by reading the
+        # rendered <meta name="description"> off a published page.
+        code, rm = wp.json('POST', RANKMATH + '/updateMeta', json={
+            'objectType': 'post', 'objectID': res['id'],
+            'meta': {'rank_math_title': p['title'],
+                     'rank_math_description': p['metaDesc']}})
+        if code != 200:
+            print('       SEO title/description NOT set: %s %s' % (code, rm))
     return 0
 
 
