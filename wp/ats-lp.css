@@ -320,6 +320,19 @@
 @media (min-width: 620px) {
   .ats-lp__fig--pair { grid-template-columns: 1fr 1fr; }
 }
+
+/* A labelled shot inside a pair. The single figcaption underneath cannot say
+   which frame is which, so each one carries its own tag. */
+.ats-lp__shot { position: relative; display: block; }
+.ats-lp__shot img { display: block; }
+.ats-lp__shot-tag {
+  position: absolute; left: 10px; bottom: 10px;
+  padding: 5px 11px; border-radius: 999px;
+  background: rgba(17, 20, 28, .82);
+  color: #fff; font-size: .72rem; font-weight: 700;
+  letter-spacing: .06em; text-transform: uppercase;
+  line-height: 1;
+}
 .ats-lp__fig figcaption {
   margin-top: 9px; font-size: .82rem; color: var(--ats-ink-3); line-height: 1.5;
 }

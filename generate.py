@@ -213,12 +213,14 @@ PAGES = {
         # He asked for room for pictures, and his own file marks two spots:
         # a before/after next to the packages and a finished-vehicle shot on Gold.
         'figures': [
-            # A "before and after" faked from two unrelated cars would be a lie
-            # in a photo, so this stays a single slot until his real pair arrives
-            # — at which point it takes both images side by side.
-            {'after': 1, 'caption': 'Photo slot — your before-and-after detailing shots go here.',
-             'items': [('european-bmw.webp', 'Detailed vehicle at Auto Tech Specialists in San Diego')]},
-            {'after': 3, 'caption': 'A finished Gold package detail.',
+            # His own two shots, 26 Aug. Same car, same bay, same light, so they
+            # line up exactly side by side. Labelled "wash" and "finished" and
+            # not "before/after": the left frame is a car under foam, not a dirty
+            # one, and captioning a rinse as a "before" would oversell the work.
+            {'after': 1, 'caption': 'Gold detailing in our wash bay — hand foam wash through to the finished car.',
+             'items': [('detail-foam.webp', 'Car under a hand foam wash in the Gold Detailing bay at Auto Tech Specialists in San Diego', 'Wash'),
+                       ('detail-finished.webp', 'Finished vehicle after Gold detailing at Auto Tech Specialists in Kearny Mesa, San Diego', 'Finished')]},
+            {'after': 3, 'caption': 'Photo slot — a finished Gold package vehicle goes here.',
              'items': [('vehicles-row.webp', 'Gold auto detailing package at Auto Tech Specialists in Kearny Mesa')]},
         ],
     },
@@ -319,11 +321,21 @@ def render_figure(group, img_base):
     markup, same dimensions, only the filename changes.
     """
     imgs = []
-    for name, alt in group['items']:
+    for item in group['items']:
+        # (file, alt) or (file, alt, label). A two-up photo pair needs the label
+        # on each shot — a single caption underneath cannot say which is which.
+        name, alt = item[0], item[1]
+        label = item[2] if len(item) > 2 else None
         w, h = hero_size(name)
-        imgs.append('            <img src="%s" alt="%s" width="%d" height="%d" '
-                    'loading="lazy" decoding="async">'
-                    % (img_url(img_base, name), esc(alt), w, h))
+        img = ('<img src="%s" alt="%s" width="%d" height="%d" '
+               'loading="lazy" decoding="async">'
+               % (img_url(img_base, name), esc(alt), w, h))
+        if label:
+            imgs.append('            <div class="ats-lp__shot">%s'
+                        '<span class="ats-lp__shot-tag">%s</span></div>'
+                        % (img, esc(label)))
+        else:
+            imgs.append('            %s' % img)
     cls = 'ats-lp__fig' + (' ats-lp__fig--pair' if len(imgs) > 1 else '')
     cap = ('\n            <figcaption>%s</figcaption>' % esc(group['caption'])
            if group.get('caption') else '')
