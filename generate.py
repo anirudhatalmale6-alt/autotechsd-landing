@@ -78,6 +78,26 @@ ICON_SHIELD = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strok
 ICON_TICK = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" '
              'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
              '<path d="M20 6 9 17l-5-5"/></svg>')
+ICON_BAYS = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" '
+             'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+             '<path d="M3 21V8.6L12 3l9 5.6V21"/><path d="M2 21h20"/>'
+             '<path d="M7.5 21v-7h9v7"/><path d="M7.5 17.2h9"/></svg>')
+ICON_EST = ('<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" '
+            'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+            '<circle cx="12" cy="9" r="6.2"/>'
+            '<path d="m8.3 14.4-1.6 7.1L12 18.4l5.3 3.1-1.6-7.1"/></svg>')
+ICON_STAR = ('<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">'
+             '<path d="m12 2.4 2.95 5.98 6.6.96-4.78 4.65 1.13 6.57L12 17.46 '
+             '6.1 20.56l1.13-6.57L2.45 9.34l6.6-.96Z"/></svg>')
+
+# The strip he asked for on 28 Aug: the three phrases his team wants visible at
+# the top of every page, laid out like the icon row on his home page. His words,
+# hyphenated to match the wording already used further down these pages.
+TRUST = [
+    (ICON_BAYS, '19-Bay Facility'),
+    (ICON_EST, 'Established Since 1999'),
+    (ICON_STAR, '5-Star Customer Rated'),
+]
 
 # Cancelled 26 Aug 2026. His site already has /auto-body-and-collision-repair/,
 # which he only spotted after the build — two pages targeting the same service
@@ -362,6 +382,10 @@ def build_fragment(page, cfg, img_base):
 
     ticks = '\n'.join('          <li>%s%s</li>' % (ICON_TICK, esc(t)) for t in HERO_TICKS)
 
+    trust = '\n'.join(
+        '        <li><span class="ats-lp__trust-ico">%s</span>%s</li>' % (i, esc(t))
+        for i, t in TRUST)
+
     # Body column: his opening paragraph, then a sub-heading per section with
     # its paragraphs and any bullet list underneath.
     body = ['          <p>%s</p>' % esc(page['bodyOpen'])] if page['bodyOpen'] else []
@@ -463,6 +487,15 @@ def build_fragment(page, cfg, img_base):
 
     return '''<div class="ats-lp">
 
+  <!-- trust strip -->
+  <section class="ats-lp__trust" aria-label="Why Auto Tech Specialists">
+    <div class="ats-lp__wrap">
+      <ul class="ats-lp__trust-row">
+{trust}
+      </ul>
+    </div>
+  </section>
+
   <!-- hero -->
   <section class="ats-lp__hero">
     <div class="ats-lp__hero-bg"><img src="{hero_url}" alt="" width="{hero_w}" height="{hero_h}" fetchpriority="high" decoding="async"></div>
@@ -550,7 +583,7 @@ def build_fragment(page, cfg, img_base):
 '''.format(hero_url=img_url(img_base, cfg['hero']),
            hero_w=hero_size(cfg['hero'])[0], hero_h=hero_size(cfg['hero'])[1], kicker=esc(page['kicker']), h1=esc(page['h1']),
            lead=esc(page['heroSub']), phone_href=PHONE_HREF, phone=PHONE_DISPLAY, book=BOOK_URL,
-           ticks=ticks, stats=stats, certs=certs, service=esc(service),
+           ticks=ticks, trust=trust, stats=stats, certs=certs, service=esc(service),
            h2=esc(cfg['h2']), body=body, address=ADDRESS, signs=signs_html,
            glance=glance_html, warranty=warranty_html, aside_note=aside_note,
            cta_lead=cta_lead, faq=faq)

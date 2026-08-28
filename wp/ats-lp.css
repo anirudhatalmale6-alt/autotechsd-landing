@@ -51,6 +51,39 @@
 .ats-lp .ats-btn--dark { background: var(--ats-ink); color: #fff; }
 .ats-lp .ats-btn--dark:hover { background: var(--ats-ink-2); color: #fff; }
 
+/* ---- trust strip -------------------------------------------------------- */
+/* Sits above the hero, in the same place his home page carries its icon row.
+   Three items on one line on desktop; below 720px they stack, because the
+   phrases are too long to sit side by side on a phone without truncating. */
+.ats-lp__trust { background: var(--ats-gray); border-bottom: 1px solid var(--ats-line); }
+.ats-lp__trust-row {
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
+  gap: 12px clamp(16px, 3vw, 40px);
+  margin: 0; padding: clamp(12px, 1.8vw, 17px) 0; list-style: none;
+}
+.ats-lp__trust-row li {
+  display: flex; align-items: center; gap: 12px;
+  color: var(--ats-ink); font-weight: 600; line-height: 1.25;
+  font-size: clamp(.92rem, 1.35vw, 1.06rem);
+}
+.ats-lp__trust-ico { display: flex; flex: none; color: var(--ats-ink); }
+.ats-lp__trust-ico svg { width: clamp(22px, 2.5vw, 27px); height: clamp(22px, 2.5vw, 27px); }
+/* On a phone the strip costs vertical space above the fold, and the hero CTA is
+   what has to stay visible — measured live at 552px on a 390x780 phone before
+   this was added. So the phone version is tighter, and the hero gives back some
+   of its own top padding, which the strip is now providing visually anyway.
+   Measured after: Call still lands above the fold. Same trap as the CARFAX
+   badge, which pushed that button from 626px to 787px and off the screen. */
+@media (max-width: 719px) {
+  .ats-lp__trust-row {
+    flex-direction: column; align-items: flex-start; gap: 8px;
+    padding: 11px 0; font-size: .88rem;
+  }
+  .ats-lp__trust-row li { font-size: .88rem; gap: 10px; }
+  .ats-lp__trust-ico svg { width: 19px; height: 19px; }
+  .ats-lp__hero-inner { padding-top: 30px; }
+}
+
 /* ---- hero --------------------------------------------------------------- */
 .ats-lp__hero { position: relative; overflow: hidden; background: var(--ats-ink); isolation: isolate; }
 /* The hero image is a real <img>, not a CSS background. A background-image is
