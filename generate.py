@@ -369,6 +369,24 @@ def render_figure(group, img_base):
             % (cls, '\n'.join(imgs), cap))
 
 
+def wp_safe(frag):
+    """Strip the section comments and blank lines out of the WordPress copy.
+
+    wpautop runs over page content on render. A blank line between two
+    <section>s makes it emit an empty <p>, and my `<!-- hero -->` style comments
+    give it something to wrap, so it emitted one before EVERY section. Each of
+    those carries the theme's 27px paragraph margin, which showed up as a white
+    band between every band of colour on the page — including between the dark
+    hero and the dark stat strip. Invisible in the preview, which does not run
+    wpautop; only the live pages had it.
+
+    The readable version stays in the preview build; only the copy that goes
+    into WordPress is flattened.
+    """
+    frag = re.sub(r'^\s*<!--.*?-->\s*$', '', frag, flags=re.M)
+    return re.sub(r'\n\s*\n+', '\n', frag).strip() + '\n'
+
+
 def build_fragment(page, cfg, img_base):
     service = short_service(page)
 
@@ -722,7 +740,8 @@ def main():
     # Administrator on a single-site install. Posted as an Editor, wp_kses_post
     # strips it and the pages render unstyled — that is why the job needs an
     # Administrator, not because of the Customizer.
-    wp_style = '<style>%s</style>\n\n' % minify_css(lp_css)
+    # One newline, not two: a blank line here is another empty <p> from wpautop.
+    wp_style = '<style>%s</style>\n' % minify_css(lp_css)
 
     # Real media-library URLs if wp-deploy.py has uploaded anything yet,
     # otherwise the plain prefix.
@@ -739,7 +758,7 @@ def main():
         cfg = PAGES[page['slug']]
 
         # WordPress fragment — images resolve to the media library folder.
-        frag_wp = build_fragment(page, cfg, img_wp)
+        frag_wp = wp_safe(build_fragment(page, cfg, img_wp))
         open(os.path.join(WP_OUT, page['slug'] + '.html'), 'w', encoding='utf-8').write(
             wp_style + frag_wp)
 

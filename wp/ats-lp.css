@@ -32,6 +32,12 @@
 /* Astra wraps page content in a padded container; these sections are meant to
    run edge to edge, so we pull them back out and re-pad internally. */
 .ats-lp * { box-sizing: border-box; }
+/* Belt and braces against wpautop: it wraps anything loose between two sections
+   in a paragraph, and an empty paragraph still carries the theme's 27px margin,
+   which reads as a white band between two bands of colour. generate.py now
+   flattens the fragment so none are produced; this catches any that survive an
+   edit made in the WordPress editor later. */
+.ats-lp > p:empty { display: none; }
 .ats-lp img { max-width: 100%; height: auto; display: block; }
 .ats-lp__wrap { width: 100%; max-width: var(--ats-wrap); margin: 0 auto; padding: 0 var(--ats-pad); }
 
@@ -56,12 +62,20 @@
    Three items on one line on desktop; below 720px they stack, because the
    phrases are too long to sit side by side on a phone without truncating. */
 .ats-lp__trust { background: var(--ats-gray); border-bottom: 1px solid var(--ats-line); }
-.ats-lp__trust-row {
+/* `.ats-lp .ats-lp__trust-row`, not `.ats-lp__trust-row` on its own. Astra
+   styles `.entry-content ul` — one class plus one element, which OUTRANKS a
+   single class of mine, so my `margin: 0` lost and the theme's 17px top and
+   bottom margins won. With no padding or border on the section for them to
+   press against, those margins COLLAPSED straight out through it: white gaps
+   above and below the strip, leaving a grey bar floating between the menu and
+   the hero. Its `padding-left` won the same way and squeezed the row until the
+   third item wrapped onto its own line on a tablet. Two class names beats it. */
+.ats-lp .ats-lp__trust-row {
   display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
   gap: 12px clamp(16px, 3vw, 40px);
   margin: 0; padding: clamp(12px, 1.8vw, 17px) 0; list-style: none;
 }
-.ats-lp__trust-row li {
+.ats-lp .ats-lp__trust-row li {
   display: flex; align-items: center; gap: 12px;
   color: var(--ats-ink); font-weight: 600; line-height: 1.25;
   font-size: clamp(.92rem, 1.35vw, 1.06rem);
@@ -75,11 +89,11 @@
    Measured after: Call still lands above the fold. Same trap as the CARFAX
    badge, which pushed that button from 626px to 787px and off the screen. */
 @media (max-width: 719px) {
-  .ats-lp__trust-row {
+  .ats-lp .ats-lp__trust-row {
     flex-direction: column; align-items: flex-start; gap: 8px;
     padding: 11px 0; font-size: .88rem;
   }
-  .ats-lp__trust-row li { font-size: .88rem; gap: 10px; }
+  .ats-lp .ats-lp__trust-row li { font-size: .88rem; gap: 10px; }
   .ats-lp__trust-ico svg { width: 19px; height: 19px; }
   .ats-lp__hero-inner { padding-top: 30px; }
 }
@@ -117,7 +131,11 @@
   font-size: clamp(1rem, 1.6vw, 1.12rem); line-height: 1.6;
 }
 .ats-lp__hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-bottom: 26px; }
-.ats-lp__ticks { display: flex; flex-wrap: wrap; gap: 10px 26px; margin: 0; padding: 0; list-style: none; }
+/* Two class names for the same reason as the trust row above: `.entry-content ul`
+   outranks one class, so the theme was landing 17px of vertical margin and a
+   20px indent on these ticks — they have sat 20px right of the buttons above
+   them since the first build. */
+.ats-lp .ats-lp__ticks { display: flex; flex-wrap: wrap; gap: 10px 26px; margin: 0; padding: 0; list-style: none; }
 .ats-lp__ticks li {
   display: flex; align-items: center; gap: 8px;
   color: #e6e6e6; font-size: .87rem; font-weight: 600;
@@ -217,7 +235,7 @@
 .ats-lp__band .ats-lp__eyebrow { color: #ff8a8f; }
 .ats-lp__band h2.ats-lp__h2 { color: #fff; }
 .ats-lp__band .ats-lp__lead { color: #d4d4d4; }
-.ats-lp__checks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 30px; margin: clamp(24px, 3.4vw, 34px) 0 0; padding: 0; list-style: none; }
+.ats-lp .ats-lp__checks { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px 30px; margin: clamp(24px, 3.4vw, 34px) 0 0; padding: 0; list-style: none; }
 .ats-lp__checks li { display: flex; gap: 11px; color: #ececec; font-size: .97rem; line-height: 1.5; }
 .ats-lp__checks svg { flex: none; width: 21px; height: 21px; margin-top: 2px; color: var(--ats-red); }
 
@@ -279,7 +297,8 @@
   .ats-lp__stat:nth-child(n+3) { border-top: 1px solid rgba(255, 255, 255, .1); }
 }
 @media (max-width: 620px) {
-  .ats-lp__checks { grid-template-columns: 1fr; }
+  /* two classes, to still outrank the base rule now that it carries two */
+  .ats-lp .ats-lp__checks { grid-template-columns: 1fr; }
   .ats-lp__hero-actions .ats-btn { flex: 1 1 100%; }
   .ats-lp__cta-actions { width: 100%; }
   .ats-lp__cta-actions .ats-btn { flex: 1 1 100%; }
