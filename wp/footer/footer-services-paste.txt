@@ -1,29 +1,36 @@
 FOOTER - SERVICES COLUMN
 The 11 new links, ready to paste in one go
 
-WHAT THIS IS
-Everything below the dashed line is WordPress block code. Pasting it into the
-footer creates all 11 links at once, already linked and already spaced and sized
-the same as the five links that are in that column now. Nothing to type, nothing
-to link by hand.
+WHY THIS FILE
+The error you hit - "Cannot read properties of null (reading 'endpoints')" - is
+the Widgets screen failing to save. Your site and your footer are fine; nothing
+was lost, but nothing was saved either. The Customizer edits the exact same
+footer box through a different save route, and that one usually still works.
 
-STEPS
-1.  WordPress admin > Appearance > Widgets
-2.  Find the box headed SERVICES. It is the column that currently reads:
-    Smog Check & Inspection / Auto Body & Collision Repair / Check Engine Light /
-    Emergency Repair / Tune-Up & Maintenance / Contact Us
+STEPS - use the CUSTOMIZER, not the Widgets screen
+1.  WordPress admin > Appearance > Customize
+2.  In the left panel click Widgets, then Footer Widget 3.
+    You will see the SERVICES box - the one that reads Smog Check & Inspection,
+    Auto Body & Collision Repair, Check Engine Light, Emergency Repair,
+    Tune-Up & Maintenance, Contact Us.
 3.  Click at the very end of "Tune-Up & Maintenance", after the last letter.
 4.  Press the End key, then press Enter. That gives you an empty line under it.
 5.  Select everything below the dashed line here - from the first <!-- down to
     the very last --> - copy it, and paste onto that empty line.
     WordPress reads the code and turns it into 11 finished links.
-6.  Click Update, top right. Then load the site and scroll to the footer.
+6.  Click Publish, top left. Then load the site and scroll to the footer.
 
-If the paste shows up as visible code instead of links, press Ctrl+Z to undo and
-tell me - there is another way in and I will walk you through it.
+IF THE CUSTOMIZER ALSO ERRORS
+Try it once in a private/incognito window - that rules out a browser extension
+or a stale cached script, which is a common cause of that exact error.
+If it still errors, send me an Application Password and I will write the links
+straight into the footer through the API, which skips the editor screen
+altogether. Users > click your own name > scroll to Application Passwords >
+type "Anirudha footer" > Add > send me the code. It is not your login, it only
+works for this, and you delete it afterwards.
 
-The column will be long: 6 links now, 17 after. Once it is in I can split it into
-two shorter columns if you would rather - just say.
+The column goes from 6 links to 17, so it will be tall. Once it is in I can
+split it into two shorter columns if you would rather.
 
 --------------------------------------------------------------------------------
 
