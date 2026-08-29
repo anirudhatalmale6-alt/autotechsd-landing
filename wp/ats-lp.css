@@ -60,8 +60,18 @@
 /* ---- trust strip -------------------------------------------------------- */
 /* Sits above the hero, in the same place his home page carries its icon row.
    Three items on one line on desktop; below 720px they stack, because the
-   phrases are too long to sit side by side on a phone without truncating. */
-.ats-lp__trust { background: var(--ats-gray); border-bottom: 1px solid var(--ats-line); }
+   phrases are too long to sit side by side on a phone without truncating.
+
+   Every number below is MEASURED off his live home page bar (the UAGB container
+   .uagb-block-gxd60xjm), not chosen — he asked for a match on 29 Aug and colour
+   and font were both off:
+     bar background   rgb(228,228,228)  #e4e4e4, no border, 10px top and bottom
+     text             Montserrat 14px / 400 / line-height 23.1px / #313131
+     icon             35x35, solid, filled #313131 — same colour as the text
+     icon to text     10px      cells   equal thirds, 25px apart, left aligned
+   My first version was #f4f4f5 with 600-weight text in a size that scaled with
+   the viewport, and outline icons. */
+.ats-lp__trust { background: #e4e4e4; }
 /* `.ats-lp .ats-lp__trust-row`, not `.ats-lp__trust-row` on its own. Astra
    styles `.entry-content ul` — one class plus one element, which OUTRANKS a
    single class of mine, so my `margin: 0` lost and the theme's 17px top and
@@ -71,31 +81,45 @@
    the hero. Its `padding-left` won the same way and squeezed the row until the
    third item wrapped onto its own line on a tablet. Two class names beats it. */
 .ats-lp .ats-lp__trust-row {
-  display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between;
-  gap: 12px clamp(16px, 3vw, 40px);
-  margin: 0; padding: clamp(12px, 1.8vw, 17px) 0; list-style: none;
+  display: flex; flex-wrap: wrap; align-items: center; justify-content: flex-start;
+  gap: 10px 25px;
+  margin: 0; padding: 10px 0; list-style: none;
 }
+/* flex-basis 0 with grow makes the three cells exactly equal, which is what his
+   bar does (383px each inside 1200 with two 25px gaps). min-width is the wrap
+   point: below it the third item drops to its own line instead of the text
+   crushing — 190px is the widest of the three phrases at 14px plus the icon. */
 .ats-lp .ats-lp__trust-row li {
-  display: flex; align-items: center; gap: 12px;
-  color: var(--ats-ink); font-weight: 600; line-height: 1.25;
-  font-size: clamp(.92rem, 1.35vw, 1.06rem);
+  flex: 1 1 0; min-width: 190px;
+  display: flex; align-items: center; gap: 10px;
+  color: var(--ats-ink-2); font-weight: 400; line-height: 23.1px;
+  font-size: 14px;
 }
-.ats-lp__trust-ico { display: flex; flex: none; color: var(--ats-ink); }
-.ats-lp__trust-ico svg { width: clamp(22px, 2.5vw, 27px); height: clamp(22px, 2.5vw, 27px); }
+.ats-lp__trust-ico { display: flex; flex: none; color: var(--ats-ink-2); }
+.ats-lp__trust-ico svg { width: 35px; height: 35px; }
 /* On a phone the strip costs vertical space above the fold, and the hero CTA is
    what has to stay visible — measured live at 552px on a 390x780 phone before
    this was added. So the phone version is tighter, and the hero gives back some
    of its own top padding, which the strip is now providing visually anyway.
    Measured after: Call still lands above the fold. Same trap as the CARFAX
-   badge, which pushed that button from 626px to 787px and off the screen. */
+   badge, which pushed that button from 626px to 787px and off the screen.
+   His own bar is set to hide on mobile, so there is nothing to match against
+   down here — but the whole point of the strip is that the three phrases are
+   on every page, so it stays, just tighter. */
 @media (max-width: 719px) {
   .ats-lp .ats-lp__trust-row {
-    flex-direction: column; align-items: flex-start; gap: 8px;
-    padding: 11px 0; font-size: .88rem;
+    flex-direction: column; align-items: flex-start; gap: 6px;
+    padding: 9px 0;
   }
-  .ats-lp .ats-lp__trust-row li { font-size: .88rem; gap: 10px; }
-  .ats-lp__trust-ico svg { width: 19px; height: 19px; }
-  .ats-lp__hero-inner { padding-top: 30px; }
+  .ats-lp .ats-lp__trust-row li { min-width: 0; line-height: 1.3; }
+  .ats-lp__trust-ico svg { width: 20px; height: 20px; }
+  /* TWO class names, or this loses. The base `.ats-lp__hero-inner` rule further
+     down the file has the same specificity and comes LATER, so it wins on order
+     and this padding-top was a no-op — measured on a 390x780 phone with a mobile
+     user agent (the header is 125px there, not 65px): hero padding-top was still
+     computing to 48px. Strip 90px + this 18px is what puts the second CTA button
+     back above the fold — bottom edge 776px of 780px. Measured, both buttons. */
+  .ats-lp .ats-lp__hero-inner { padding-top: 30px; }
 }
 
 /* ---- hero --------------------------------------------------------------- */
