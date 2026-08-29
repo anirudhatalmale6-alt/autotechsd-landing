@@ -1,0 +1,72 @@
+FOOTER - SERVICES COLUMN
+The 11 new links, ready to paste in one go
+
+WHAT THIS IS
+Everything below the dashed line is WordPress block code. Pasting it into the
+footer creates all 11 links at once, already linked and already spaced and sized
+the same as the five links that are in that column now. Nothing to type, nothing
+to link by hand.
+
+STEPS
+1.  WordPress admin > Appearance > Widgets
+2.  Find the box headed SERVICES. It is the column that currently reads:
+    Smog Check & Inspection / Auto Body & Collision Repair / Check Engine Light /
+    Emergency Repair / Tune-Up & Maintenance / Contact Us
+3.  Click at the very end of "Tune-Up & Maintenance", after the last letter.
+4.  Press the End key, then press Enter. That gives you an empty line under it.
+5.  Select everything below the dashed line here - from the first <!-- down to
+    the very last --> - copy it, and paste onto that empty line.
+    WordPress reads the code and turns it into 11 finished links.
+6.  Click Update, top right. Then load the site and scroll to the footer.
+
+If the paste shows up as visible code instead of links, press Ctrl+Z to undo and
+tell me - there is another way in and I will walk you through it.
+
+The column will be long: 6 links now, 17 after. Once it is in I can split it into
+two shorter columns if you would rather - just say.
+
+--------------------------------------------------------------------------------
+
+<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|20","bottom":"var:preset|spacing|20"},"padding":{"top":"0","bottom":"0"}},"typography":{"fontSize":"16px"}}} -->
+<p style="margin-top:var(--wp--preset--spacing--20);margin-bottom:var(--wp--preset--spacing--20);padding-top:0;padding-bottom:0;font-size:16px"><a href="https://autotechsd.com/oil-change-san-diego/">Oil Change Service</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|20","bottom":"var:preset|spacing|20"},"padding":{"top":"0","bottom":"0"}},"typography":{"fontSize":"16px"}}} -->
+<p style="margin-top:var(--wp--preset--spacing--20);margin-bottom:var(--wp--preset--spacing--20);padding-top:0;padding-bottom:0;font-size:16px"><a href="https://autotechsd.com/brake-repair-san-diego/">Brake Repair &amp; Replacement</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|20","bottom":"var:preset|spacing|20"},"padding":{"top":"0","bottom":"0"}},"typography":{"fontSize":"16px"}}} -->
+<p style="margin-top:var(--wp--preset--spacing--20);margin-bottom:var(--wp--preset--spacing--20);padding-top:0;padding-bottom:0;font-size:16px"><a href="https://autotechsd.com/transmission-repair-san-diego/">Transmission Repair</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|20","bottom":"var:preset|spacing|20"},"padding":{"top":"0","bottom":"0"}},"typography":{"fontSize":"16px"}}} -->
+<p style="margin-top:var(--wp--preset--spacing--20);margin-bottom:var(--wp--preset--spacing--20);padding-top:0;padding-bottom:0;font-size:16px"><a href="https://autotechsd.com/car-battery-replacement-san-diego/">Car Battery Replacement</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|20","bottom":"var:preset|spacing|20"},"padding":{"top":"0","bottom":"0"}},"typography":{"fontSize":"16px"}}} -->
+<p style="margin-top:var(--wp--preset--spacing--20);margin-bottom:var(--wp--preset--spacing--20);padding-top:0;padding-bottom:0;font-size:16px"><a href="https://autotechsd.com/ac-repair-san-diego/">Auto A/C Repair</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|20","bottom":"var:preset|spacing|20"},"padding":{"top":"0","bottom":"0"}},"typography":{"fontSize":"16px"}}} -->
+<p style="margin-top:var(--wp--preset--spacing--20);margin-bottom:var(--wp--preset--spacing--20);padding-top:0;padding-bottom:0;font-size:16px"><a href="https://autotechsd.com/cooling-system-repair-san-diego/">Cooling System Repair</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|20","bottom":"var:preset|spacing|20"},"padding":{"top":"0","bottom":"0"}},"typography":{"fontSize":"16px"}}} -->
+<p style="margin-top:var(--wp--preset--spacing--20);margin-bottom:var(--wp--preset--spacing--20);padding-top:0;padding-bottom:0;font-size:16px"><a href="https://autotechsd.com/traction-control-abs-repair/">Traction Control &amp; ABS Repair</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|20","bottom":"var:preset|spacing|20"},"padding":{"top":"0","bottom":"0"}},"typography":{"fontSize":"16px"}}} -->
+<p style="margin-top:var(--wp--preset--spacing--20);margin-bottom:var(--wp--preset--spacing--20);padding-top:0;padding-bottom:0;font-size:16px"><a href="https://autotechsd.com/tesla-ev-service-san-diego/">Tesla &amp; EV Service</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|20","bottom":"var:preset|spacing|20"},"padding":{"top":"0","bottom":"0"}},"typography":{"fontSize":"16px"}}} -->
+<p style="margin-top:var(--wp--preset--spacing--20);margin-bottom:var(--wp--preset--spacing--20);padding-top:0;padding-bottom:0;font-size:16px"><a href="https://autotechsd.com/windshield-replacement-san-diego/">Windshield Replacement</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|20","bottom":"var:preset|spacing|20"},"padding":{"top":"0","bottom":"0"}},"typography":{"fontSize":"16px"}}} -->
+<p style="margin-top:var(--wp--preset--spacing--20);margin-bottom:var(--wp--preset--spacing--20);padding-top:0;padding-bottom:0;font-size:16px"><a href="https://autotechsd.com/commercial-fleet-service-repair-san-diego/">Commercial Fleet Service</a></p>
+<!-- /wp:paragraph -->
+
+<!-- wp:paragraph {"style":{"spacing":{"margin":{"top":"var:preset|spacing|20","bottom":"var:preset|spacing|20"},"padding":{"top":"0","bottom":"0"}},"typography":{"fontSize":"16px"}}} -->
+<p style="margin-top:var(--wp--preset--spacing--20);margin-bottom:var(--wp--preset--spacing--20);padding-top:0;padding-bottom:0;font-size:16px"><a href="https://autotechsd.com/auto-detailing-san-diego/">Auto Detailing</a></p>
+<!-- /wp:paragraph -->
