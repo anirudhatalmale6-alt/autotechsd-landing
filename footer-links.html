@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Auto Tech - footer links to paste</title>
+<style>
+  :root { --red:#ce171f; --ink:#191919; --ink2:#313131; }
+  * { box-sizing:border-box; }
+  body { margin:0; padding:24px 18px 60px; background:#fff; color:var(--ink2);
+         font:16px/1.6 -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif; }
+  .wrap { max-width:640px; margin:0 auto; }
+  h1 { font-size:22px; line-height:1.3; color:var(--ink); margin:0 0 6px; }
+  p.sub { margin:0 0 22px; color:#666; }
+  .big { display:block; width:100%; padding:18px 20px; border:0; border-radius:8px;
+         background:var(--red); color:#fff; font-size:18px; font-weight:700; cursor:pointer; }
+  .big:active { transform:translateY(1px); }
+  .ok { background:#0a7d33; }
+  ol.steps { padding-left:22px; margin:26px 0 0; }
+  ol.steps li { margin-bottom:10px; }
+  ul.list { list-style:none; padding:0; margin:14px 0 0; border-top:1px solid #e4e4e4; }
+  ul.list li { display:flex; align-items:center; justify-content:space-between; gap:12px;
+               padding:10px 0; border-bottom:1px solid #e4e4e4; }
+  .nm { font-weight:600; color:var(--ink); }
+  .mini { flex:none; padding:7px 12px; border:1px solid #bbb; border-radius:6px;
+          background:#f6f6f6; font-size:13px; cursor:pointer; color:var(--ink2); }
+  .mini.ok { background:#0a7d33; border-color:#0a7d33; color:#fff; }
+  h2 { font-size:16px; margin:34px 0 8px; color:var(--ink); }
+  .note { background:#f6f6f6; border-left:4px solid var(--red); padding:12px 14px; margin:18px 0; }
+  textarea { width:100%; height:120px; font:12px/1.4 ui-monospace,Menlo,Consolas,monospace;
+             padding:10px; border:1px solid #ccc; border-radius:6px; margin-top:8px; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Footer links - the 9 that are still missing</h1>
+  <p class="sub">Oil Change Service and Brake Repair &amp; Replacement are already in and working. This page has the other nine.</p>
+
+  <button class="big" id="copyAll">Copy all 9 links</button>
+
+  <div class="note">
+    <strong>Use this button, not select-and-copy.</strong> That is what went wrong last time.
+    Highlighting text on a web page copies the page's formatting along with it, and WordPress
+    then treats the whole thing as a lump of text to display instead of instructions to follow.
+    This button copies the plain text only, which is what WordPress needs.
+  </div>
+
+  <h2>Then, in WordPress</h2>
+  <ol class="steps">
+    <li>First, delete the block of code that is showing in the footer now - click on it, then
+        use the three-dot menu on it and choose Delete.</li>
+    <li>Appearance &gt; Customize &gt; Widgets &gt; Footer Widget 3.</li>
+    <li>Click at the very end of <strong>Brake Repair &amp; Replacement</strong>, press
+        <strong>End</strong>, then press <strong>Enter</strong>.</li>
+    <li>Paste on that empty line (Ctrl+V, or Cmd+V on a Mac).</li>
+    <li>Publish.</li>
+  </ol>
+
+  <h2>Or one at a time</h2>
+  <p class="sub" style="margin-bottom:0">Same steps, just one link per paste. Publish whenever you like.</p>
+  <ul class="list">
+    <li><span class="nm">Transmission Repair</span><button class="mini" data-i="0">Copy just this one</button></li>
+    <li><span class="nm">Car Battery Replacement</span><button class="mini" data-i="1">Copy just this one</button></li>
+    <li><span class="nm">Auto A/C Repair</span><button class="mini" data-i="2">Copy just this one</button></li>
+    <li><span class="nm">Cooling System Repair</span><button class="mini" data-i="3">Copy just this one</button></li>
+    <li><span class="nm">Traction Control &amp; ABS Repair</span><button class="mini" data-i="4">Copy just this one</button></li>
+    <li><span class="nm">Tesla &amp; EV Service</span><button class="mini" data-i="5">Copy just this one</button></li>
+    <li><span class="nm">Windshield Replacement</span><button class="mini" data-i="6">Copy just this one</button></li>
+    <li><span class="nm">Commercial Fleet Service</span><button class="mini" data-i="7">Copy just this one</button></li>
+    <li><span class="nm">Auto Detailing</span><button class="mini" data-i="8">Copy just this one</button></li>
+  </ul>
+
+  <h2>If a button does not work on your device</h2>
+  <p class="sub">Tap inside the box below, select all of it, and copy from there. Copying out of a
+     plain box like this is safe - it does not carry the formatting that caused the problem.</p>
+  <textarea id="fallback" readonly></textarea>
+
+</div>
+<script>
+var BLOCKS = ["<!-- wp:paragraph {\"style\":{\"spacing\":{\"margin\":{\"top\":\"var:preset|spacing|20\",\"bottom\":\"var:preset|spacing|20\"},\"padding\":{\"top\":\"0\",\"bottom\":\"0\"}},\"typography\":{\"fontSize\":\"16px\"}}} -->\n<p style=\"margin-top:var(--wp--preset--spacing--20);margin-bottom:var(--wp--preset--spacing--20);padding-top:0;padding-bottom:0;font-size:16px\"><a href=\"https://autotechsd.com/transmission-repair-san-diego/\">Transmission Repair</a></p>\n<!-- /wp:paragraph -->", "<!-- wp:paragraph {\"style\":{\"spacing\":{\"margin\":{\"top\":\"var:preset|spacing|20\",\"bottom\":\"var:preset|spacing|20\"},\"padding\":{\"top\":\"0\",\"bottom\":\"0\"}},\"typography\":{\"fontSize\":\"16px\"}}} -->\n<p style=\"margin-top:var(--wp--preset--spacing--20);margin-bottom:var(--wp--preset--spacing--20);padding-top:0;padding-bottom:0;font-size:16px\"><a href=\"https://autotechsd.com/car-battery-replacement-san-diego/\">Car Battery Replacement</a></p>\n<!-- /wp:paragraph -->", "<!-- wp:paragraph {\"style\":{\"spacing\":{\"margin\":{\"top\":\"var:preset|spacing|20\",\"bottom\":\"var:preset|spacing|20\"},\"padding\":{\"top\":\"0\",\"bottom\":\"0\"}},\"typography\":{\"fontSize\":\"16px\"}}} -->\n<p style=\"margin-top:var(--wp--preset--spacing--20);margin-bottom:var(--wp--preset--spacing--20);padding-top:0;padding-bottom:0;font-size:16px\"><a href=\"https://autotechsd.com/ac-repair-san-diego/\">Auto A/C Repair</a></p>\n<!-- /wp:paragraph -->", "<!-- wp:paragraph {\"style\":{\"spacing\":{\"margin\":{\"top\":\"var:preset|spacing|20\",\"bottom\":\"var:preset|spacing|20\"},\"padding\":{\"top\":\"0\",\"bottom\":\"0\"}},\"typography\":{\"fontSize\":\"16px\"}}} -->\n<p style=\"margin-top:var(--wp--preset--spacing--20);margin-bottom:var(--wp--preset--spacing--20);padding-top:0;padding-bottom:0;font-size:16px\"><a href=\"https://autotechsd.com/cooling-system-repair-san-diego/\">Cooling System Repair</a></p>\n<!-- /wp:paragraph -->", "<!-- wp:paragraph {\"style\":{\"spacing\":{\"margin\":{\"top\":\"var:preset|spacing|20\",\"bottom\":\"var:preset|spacing|20\"},\"padding\":{\"top\":\"0\",\"bottom\":\"0\"}},\"typography\":{\"fontSize\":\"16px\"}}} -->\n<p style=\"margin-top:var(--wp--preset--spacing--20);margin-bottom:var(--wp--preset--spacing--20);padding-top:0;padding-bottom:0;font-size:16px\"><a href=\"https://autotechsd.com/traction-control-abs-repair/\">Traction Control &amp; ABS Repair</a></p>\n<!-- /wp:paragraph -->", "<!-- wp:paragraph {\"style\":{\"spacing\":{\"margin\":{\"top\":\"var:preset|spacing|20\",\"bottom\":\"var:preset|spacing|20\"},\"padding\":{\"top\":\"0\",\"bottom\":\"0\"}},\"typography\":{\"fontSize\":\"16px\"}}} -->\n<p style=\"margin-top:var(--wp--preset--spacing--20);margin-bottom:var(--wp--preset--spacing--20);padding-top:0;padding-bottom:0;font-size:16px\"><a href=\"https://autotechsd.com/tesla-ev-service-san-diego/\">Tesla &amp; EV Service</a></p>\n<!-- /wp:paragraph -->", "<!-- wp:paragraph {\"style\":{\"spacing\":{\"margin\":{\"top\":\"var:preset|spacing|20\",\"bottom\":\"var:preset|spacing|20\"},\"padding\":{\"top\":\"0\",\"bottom\":\"0\"}},\"typography\":{\"fontSize\":\"16px\"}}} -->\n<p style=\"margin-top:var(--wp--preset--spacing--20);margin-bottom:var(--wp--preset--spacing--20);padding-top:0;padding-bottom:0;font-size:16px\"><a href=\"https://autotechsd.com/windshield-replacement-san-diego/\">Windshield Replacement</a></p>\n<!-- /wp:paragraph -->", "<!-- wp:paragraph {\"style\":{\"spacing\":{\"margin\":{\"top\":\"var:preset|spacing|20\",\"bottom\":\"var:preset|spacing|20\"},\"padding\":{\"top\":\"0\",\"bottom\":\"0\"}},\"typography\":{\"fontSize\":\"16px\"}}} -->\n<p style=\"margin-top:var(--wp--preset--spacing--20);margin-bottom:var(--wp--preset--spacing--20);padding-top:0;padding-bottom:0;font-size:16px\"><a href=\"https://autotechsd.com/commercial-fleet-service-repair-san-diego/\">Commercial Fleet Service</a></p>\n<!-- /wp:paragraph -->", "<!-- wp:paragraph {\"style\":{\"spacing\":{\"margin\":{\"top\":\"var:preset|spacing|20\",\"bottom\":\"var:preset|spacing|20\"},\"padding\":{\"top\":\"0\",\"bottom\":\"0\"}},\"typography\":{\"fontSize\":\"16px\"}}} -->\n<p style=\"margin-top:var(--wp--preset--spacing--20);margin-bottom:var(--wp--preset--spacing--20);padding-top:0;padding-bottom:0;font-size:16px\"><a href=\"https://autotechsd.com/auto-detailing-san-diego/\">Auto Detailing</a></p>\n<!-- /wp:paragraph -->"];
+var ALL = BLOCKS.join("\n\n") + "\n";
+document.getElementById('fallback').value = ALL;
+
+function copyText(text, btn, doneLabel) {
+  var label = btn.textContent;
+  function done() {
+    btn.textContent = doneLabel;
+    btn.classList.add('ok');
+    setTimeout(function () { btn.textContent = label; btn.classList.remove('ok'); }, 2200);
+  }
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).then(done, function () { legacy(text, done); });
+  } else {
+    legacy(text, done);
+  }
+}
+function legacy(text, done) {
+  var ta = document.createElement('textarea');
+  ta.value = text;
+  ta.style.position = 'fixed';
+  ta.style.opacity = '0';
+  document.body.appendChild(ta);
+  ta.select();
+  try { document.execCommand('copy'); done(); } catch (e) { alert('Could not copy automatically - please copy from the box at the bottom of the page.'); }
+  document.body.removeChild(ta);
+}
+
+document.getElementById('copyAll').addEventListener('click', function () {
+  copyText(ALL, this, 'Copied - now paste it in WordPress');
+});
+Array.prototype.forEach.call(document.querySelectorAll('.mini'), function (b) {
+  b.addEventListener('click', function () {
+    copyText(BLOCKS[+this.dataset.i] + "\n", this, 'Copied');
+  });
+});
+</script>
+</body>
+</html>
