@@ -6,55 +6,56 @@
 *,*::before,*::after{box-sizing:border-box}body{margin:0;font-family:"Montserrat",system-ui,sans-serif;color:#313131;background:#fff}
 img{max-width:100%;height:auto}
 .pv{background:#191919;color:#dcdcdc;font-size:.8rem;text-align:center;padding:11px 16px}.pv b{color:#fff}</style></head><body>
-<div class="pv"><b>PREVIEW</b> &mdash; NAPA warranty block for the home page. Not live yet.</div>
+<div class="pv"><b>PREVIEW</b> &mdash; 36/36 headline with the card condition as a footnote. Not live yet.</div>
 <!-- ===================================================================
      NAPA warranty block for the AutoTechSD home page.
-     Paste this into an Elementor "HTML" widget where you want it to sit.
-     Everything is inline-styled, so it needs nothing in Additional CSS.
+     Paste into an Elementor "HTML" widget. All styling is inline, so it
+     needs nothing in Additional CSS.
 
-     The 36/36 figure is stated with its condition attached, because NAPA's
-     Peace of Mind warranty is 24 months / 24,000 miles as standard and only
-     extends to 36/36 when the customer pays with the NAPA AutoCare EasyPay
-     card. Wording checked against napaonline.com/en/auto-care.
+     Ordered as the client asked on 12 Sep: 36 months / 36,000 miles is the
+     headline figure, and the condition sits in the footnote underneath -
+     card-paid repairs get 36/36, everything else gets NAPA's standard
+     24 months / 24,000 miles. Checked against napaonline.com/en/auto-care.
+
+     THE BADGE: the gold "36 Months / 36,000 Miles" seal is NAPA artwork and
+     is not in the Media library. Once it is uploaded, replace the whole
+     <div id="ats-napa-seal"> ... </div> below with:
+         <img src="URL-OF-THE-BADGE" alt="NAPA AutoCare 36 Month / 36,000 Mile
+              Nationwide Warranty" width="230" style="display:block;margin:0 auto;">
+     Until then the seal below is our own type treatment, not a copy of theirs.
      =================================================================== -->
 <div style="background:#0f2e6b;padding:clamp(38px,6vw,68px) clamp(16px,4vw,32px);">
-  <div style="max-width:1000px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:clamp(22px,4vw,48px);">
+  <div style="max-width:1040px;margin:0 auto;display:flex;flex-wrap:wrap;align-items:center;gap:clamp(24px,4vw,52px);">
 
     <div style="flex:0 0 auto;margin:0 auto;text-align:center;">
-      <!-- Official NAPA 36/36 badge goes here. Upload it to Media, then swap
-           the src below for its URL. Until then this shows the NAPA AutoCare
-           logo you already have on the site. -->
+      <div id="ats-napa-seal" style="width:212px;height:212px;margin:0 auto;border-radius:50%;background:#f7b21b;border:7px solid #0f2e6b;box-shadow:0 0 0 5px #f7b21b;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:16px;">
+        <span style="display:block;color:#0f2e6b;font-size:3.1rem;font-weight:800;line-height:.95;letter-spacing:-2px;">36</span>
+        <span style="display:block;color:#0f2e6b;font-size:1rem;font-weight:800;line-height:1;letter-spacing:.02em;">MONTHS</span>
+        <span style="display:block;width:64px;height:3px;background:#0f2e6b;margin:8px auto;border-radius:2px;"></span>
+        <span style="display:block;color:#0f2e6b;font-size:1.32rem;font-weight:800;line-height:1;">36,000</span>
+        <span style="display:block;color:#0f2e6b;font-size:.86rem;font-weight:800;line-height:1.15;letter-spacing:.02em;">MILES</span>
+        <span style="display:block;color:#0f2e6b;font-size:.56rem;font-weight:700;line-height:1.25;letter-spacing:.05em;margin-top:7px;max-width:150px;">NATIONWIDE<br>WARRANTY</span>
+      </div>
       <img src="https://autotechsd.com/wp-content/uploads/2026/08/ats-cert-cert-napa-autocare-hd.webp"
            alt="NAPA AutoCare Center - Auto Tech Specialists, San Diego"
-           width="180" height="48"
-           style="display:block;margin:0 auto;background:#fff;border-radius:10px;padding:14px 18px;max-width:100%;height:auto;">
-      <p style="margin:14px 0 0;color:#ffd24a;font-size:1.6rem;font-weight:800;line-height:1.1;letter-spacing:-.5px;">
-        24<span style="font-size:1rem;font-weight:700;">mo</span> / 24,000<span style="font-size:1rem;font-weight:700;">mi</span>
-      </p>
-      <p style="margin:2px 0 0;color:rgba(255,255,255,.75);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;font-weight:700;">
-        Nationwide warranty
-      </p>
+           width="160" height="43"
+           style="display:block;margin:18px auto 0;background:#fff;border-radius:8px;padding:10px 14px;max-width:100%;height:auto;">
     </div>
 
     <div style="flex:1 1 340px;min-width:0;">
-      <p style="margin:0 0 10px;color:#ffd24a;font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;">
+      <p style="margin:0 0 10px;color:#f7b21b;font-size:.72rem;font-weight:800;letter-spacing:.14em;text-transform:uppercase;">
         Peace of mind, wherever you drive
       </p>
       <h2 style="margin:0 0 14px;color:#fff;font-size:clamp(1.5rem,3vw,2.2rem);line-height:1.16;font-weight:800;letter-spacing:-.4px;">
-        NAPA AutoCare Nationwide Warranty
+        36-Month / 36,000-Mile NAPA Nationwide Warranty
       </h2>
-      <p style="margin:0 0 14px;color:rgba(255,255,255,.9);font-size:clamp(1rem,1.5vw,1.08rem);line-height:1.65;">
+      <p style="margin:0 0 16px;color:rgba(255,255,255,.9);font-size:clamp(1rem,1.5vw,1.08rem);line-height:1.65;">
         As a certified NAPA AutoCare Center, qualifying repairs and services we carry out are
         covered free by the <strong style="color:#fff;">NAPA AutoCare Peace of Mind Nationwide
-        Warranty &mdash; 24 months / 24,000 miles</strong>, honored at more than 14,000 locations
-        across the U.S. Every repair is also backed by our own 12-month / 12,000-mile local
-        warranty.
+        Warranty</strong>, honored at more than 14,000 locations across the U.S. Every repair is
+        also backed by our own 12-month / 12,000-mile local warranty.
       </p>
-      <p style="margin:0 0 22px;color:rgba(255,255,255,.72);font-size:.92rem;line-height:1.6;">
-        Coverage extends to <strong style="color:#ffd24a;">36 months / 36,000 miles</strong> when
-        you pay for the repair with the NAPA AutoCare EasyPay credit card.
-      </p>
-      <div style="display:flex;flex-wrap:wrap;gap:12px;">
+      <div style="display:flex;flex-wrap:wrap;gap:12px;margin-bottom:22px;">
         <a href="tel:18582772850"
            style="display:inline-flex;align-items:center;justify-content:center;background:#ce171f;color:#fff;font-weight:700;font-size:.95rem;padding:14px 24px;border-radius:8px;text-decoration:none;border:2px solid #ce171f;">
           Call (858) 277-2850
@@ -64,6 +65,11 @@ img{max-width:100%;height:auto}
           Book an appointment
         </a>
       </div>
+      <p style="margin:0;padding-top:15px;border-top:1px solid rgba(255,255,255,.22);color:rgba(255,255,255,.66);font-size:.82rem;line-height:1.6;">
+        The 36-month / 36,000-mile term applies to repairs paid for with the NAPA AutoCare EasyPay
+        credit card. All other qualifying repairs are covered by NAPA&rsquo;s standard 24-month /
+        24,000-mile Peace of Mind warranty.
+      </p>
     </div>
 
   </div>
